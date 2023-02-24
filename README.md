@@ -1,3 +1,11 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: chenpengfei
+ * @Date: 2023-02-16 15:49:27
+ * @LastEditors: chenpengfei
+ * @LastEditTime: 2023-02-17 16:48:51
+-->
 # Vue 3 + TypeScript + Vite
 
 This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
@@ -9,3 +17,12 @@ This template should help get you started developing with Vue 3 and TypeScript i
 
 ### vite配置
 1. https://www.cnblogs.com/tbfboke/p/16738297.html
+
+
+### others
+1. [生命周期](https://cn.vuejs.org/guide/essentials/lifecycle.html#lifecycle-diagram)
+2. [副作用](https://coding.imooc.com/learn/questiondetail/gDANwPNllzzXK120.html)
+3. [ref](https://cn.vuejs.org/api/reactivity-core.html#ref)
+4. provide & inject
+    * [provide](./src/components/demo/provide.vue)
+    * [inject](./src/components/demo/inject.vue)
