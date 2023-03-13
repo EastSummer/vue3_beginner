@@ -31,16 +31,18 @@ export interface IColumnProps {
   description: string;
 }
 
-const props = defineProps({
-  list: {
-    type: Array as PropType<IColumnProps[]>,
-    required: true,
-  }
-})
+// 非ts写法
+// const props = defineProps({
+//   list: {
+//     type: Array as PropType<IColumnProps[]>,
+//     required: true,
+//   }
+// })
 
-// const props = defineProps<{
-//   list: IColumnProps[]
-// }>()
+// ts写法
+const props = defineProps<{
+  list: IColumnProps[]
+}>()
 
 const columnList = computed(() => props.list.map(col => {
   if(!col.avatar) {

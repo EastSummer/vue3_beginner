@@ -4,17 +4,25 @@
  * @Author: chenpengfei
  * @Date: 2023-02-16 15:49:27
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-03-10 16:19:20
+ * @LastEditTime: 2023-03-13 13:52:28
 -->
 <template>
-  <div class="container"></div>
-  <column-list :list="testData"></column-list>
+  <div class="container-fluid px-0 flex-shrink-0">
+    <global-header :user="currentUser" />
+    <column-list :list="testData" />
+  </div>
 </template>
 
 <script setup lang="ts">
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { ref } from 'vue'
 import ColumnList, { IColumnProps } from '@/components/columnList.vue'
+import GlobalHeader, { IUserProps } from '@/components/globalHeader.vue'
+
+const currentUser = ref<IUserProps>({
+  isLogin: true,
+  name: '111'
+})
 
 const testData = ref<IColumnProps[]>([
   {
