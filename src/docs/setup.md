@@ -4,11 +4,12 @@
  * @Author: chenpengfei
  * @Date: 2023-03-06 16:44:36
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-03-08 13:42:40
+ * @LastEditTime: 2023-03-10 13:26:27
 -->
 
 ### [vue3 使用defineComponent和使用＜script setup＞语法糖的比较](https://blog.csdn.net/weixin_43993121/article/details/125084148)
 ### [Vue3之script-setup全面解析](https://www.jianshu.com/p/5096bfb42e5a)
+### https://blog.csdn.net/qq_41581588/article/details/128869363
 
 
 Q1. Vue3 setup语法糖写法给组件添加name属性

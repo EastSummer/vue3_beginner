@@ -4,7 +4,7 @@
  * @Author: chenpengfei
  * @Date: 2023-02-16 15:49:27
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-03-06 16:21:17
+ * @LastEditTime: 2023-03-10 13:43:37
 -->
 # Vue 3 + TypeScript + Vite
 
@@ -15,8 +15,10 @@ This template should help get you started developing with Vue 3 and TypeScript i
 1. [EsLint配置](https://www.jianshu.com/p/4b94540dd998)
 2. [Ts配置替换](https://coding.imooc.com/learn/questiondetail/4daeRY4pedWYnWEp.html)
 
-### vite配置
+
+### Vite配置踩坑
 1. https://www.cnblogs.com/tbfboke/p/16738297.html
+2. [Vite中配置@别名](./src/docs/vite-alias.md)
 
 
 ### others
@@ -26,6 +28,8 @@ This template should help get you started developing with Vue 3 and TypeScript i
 4. [Teleport](https://cn.vuejs.org/guide/built-ins/teleport.html)
 5. [Suspense]
 6. provide & inject
-  * [provide](./src/components/demo/provide.vue)
-  * [inject](./src/components/demo/inject.vue)
+    * [provide](./src/components/demo/provide.vue)
+    * [inject](./src/components/demo/inject.vue)
 7. [setup 语法糖(Vue3.2+)](https://cn.vuejs.org/api/sfc-script-setup.html)
+8. 支持多标签，不需要root节点
+9. [PropType<T>](https://cn.vuejs.org/api/utility-types.html#proptype-t)
