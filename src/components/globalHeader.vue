@@ -28,8 +28,8 @@
 </template>
 
 <script setup lang="ts">
-import Dropdown from './dropdown.vue';
-import DropdownItem from './dropdownItem.vue'
+import Dropdown from './Dropdown.vue';
+import DropdownItem from './DropdownItem.vue'
 
 export interface IUserProps {
   isLogin: boolean;

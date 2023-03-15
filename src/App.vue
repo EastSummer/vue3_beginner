@@ -4,25 +4,40 @@
  * @Author: chenpengfei
  * @Date: 2023-02-16 15:49:27
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-03-13 13:52:28
+ * @LastEditTime: 2023-03-15 13:33:44
 -->
 <template>
   <div class="container-fluid px-0 flex-shrink-0">
     <global-header :user="currentUser" />
     <column-list :list="testData" />
+    <validate-input
+      :rules="emailRules"
+      v-model="emailVal"
+      placeholder="请输入邮箱地址"
+      type="text"
+    />
+    <h3>{{ emailVal }}</h3>
   </div>
 </template>
 
 <script setup lang="ts">
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { ref } from 'vue'
-import ColumnList, { IColumnProps } from '@/components/columnList.vue'
-import GlobalHeader, { IUserProps } from '@/components/globalHeader.vue'
+import ColumnList, { IColumnProps } from '@/components/ColumnList.vue'
+import GlobalHeader, { IUserProps } from '@/components/GlobalHeader.vue'
+import ValidateInput, { IRulesProp } from '@/components/ValidateInput.vue'
 
 const currentUser = ref<IUserProps>({
   isLogin: true,
   name: '111'
 })
+
+const emailVal = ref('emailVal')
+
+const emailRules = ref<IRulesProp>([
+  { type: 'required', message: '电子邮箱地址不能为空' },
+  { type: 'email', message: '请输入正确的电子邮箱格式' },
+])
 
 const testData = ref<IColumnProps[]>([
   {

@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 import useClickOutside from '@/hooks/useClickOutside'
 
 const props = defineProps<{
