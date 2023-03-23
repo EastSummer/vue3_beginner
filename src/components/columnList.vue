@@ -21,15 +21,18 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { ref, defineProps, PropType, computed } from 'vue'
-import img from '@/assets/column.jpg'
+<script lang="ts">
 export interface IColumnProps {
   id: number;
   title: string;
   avatar?: string;
   description: string;
 }
+</script>
+
+<script setup lang="ts">
+import { defineProps, PropType, computed } from 'vue'
+import img from '@/assets/column.jpg'
 
 // 非ts写法
 // const props = defineProps({

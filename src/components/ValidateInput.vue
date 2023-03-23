@@ -4,7 +4,7 @@
  * @Author: chenpengfei
  * @Date: 2023-03-14 15:20:44
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-03-15 10:28:08
+ * @LastEditTime: 2023-03-16 13:45:55
 -->
 <template>
   <div class="validate-input-container pb-3">
@@ -33,7 +33,8 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { onMounted, reactive } from 'vue'
+import emitter from '@/utils/EventBus'
 
 const emailReg = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 
@@ -76,6 +77,10 @@ const updateValue = (e: Event) => {
   inputRef.val = targetValue
   emits('update:modelValue', targetValue)
 }
+
+onMounted(() => {
+  emitter.emit('from-item-created', validateInput)
+})
 </script>
 
 <style scoped>

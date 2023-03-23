@@ -10,12 +10,17 @@
   <div class="container-fluid px-0 flex-shrink-0">
     <global-header :user="currentUser" />
     <column-list :list="testData" />
-    <validate-input
-      :rules="emailRules"
-      v-model="emailVal"
-      placeholder="请输入邮箱地址"
-      type="text"
-    />
+    <validate-form @form-submit="onFormSubmit">
+      <validate-input
+        :rules="emailRules"
+        v-model="emailVal"
+        placeholder="请输入邮箱地址"
+        type="text"
+      />
+      <template #submit>
+        <span class="btn btn-danger">Submit</span>
+      </template>
+    </validate-form>
     <h3>{{ emailVal }}</h3>
   </div>
 </template>
@@ -26,6 +31,7 @@ import { ref } from 'vue'
 import ColumnList, { IColumnProps } from '@/components/ColumnList.vue'
 import GlobalHeader, { IUserProps } from '@/components/GlobalHeader.vue'
 import ValidateInput, { IRulesProp } from '@/components/ValidateInput.vue'
+import ValidateForm from '@/components/ValidateForm.vue'
 
 const currentUser = ref<IUserProps>({
   isLogin: true,
@@ -59,6 +65,10 @@ const testData = ref<IColumnProps[]>([
     // avatar: 'http://vue-maker.oss-cn-hangzhou.aliyuncs.com/vue-marker/5ee22dd58b3c4520912b9470.jpg?x-oss-process=image/resize,m_pad,h_100,w_100'
   }
 ])
+
+const onFormSubmit = (res: boolean) => {
+  console.log(res)
+}
 
 </script>
 

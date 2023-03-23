@@ -1,3 +1,11 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: chenpengfei
+ * @Date: 2023-03-13 13:38:29
+ * @LastEditors: chenpengfei
+ * @LastEditTime: 2023-03-15 15:36:57
+-->
 <template>
   <nav class="navbar navbar-dark bg-primary justify-content-between mb-4 px-4">
     <a class="navbar-brand" href="#">者也专栏</a>
@@ -27,15 +35,17 @@
   </nav>
 </template>
 
-<script setup lang="ts">
-import Dropdown from './Dropdown.vue';
-import DropdownItem from './DropdownItem.vue'
-
+<script lang="ts">
 export interface IUserProps {
   isLogin: boolean;
   name?: string;
   id?: number;
 }
+</script>
+
+<script setup lang="ts">
+import Dropdown from './Dropdown.vue';
+import DropdownItem from './DropdownItem.vue'
 
 const props = defineProps<{
   user: IUserProps

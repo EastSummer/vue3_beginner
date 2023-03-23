@@ -4,7 +4,7 @@
  * @Author: chenpengfei
  * @Date: 2023-02-16 15:49:27
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-03-10 16:29:37
+ * @LastEditTime: 2023-03-16 15:28:40
  */
 /*
  * @Descripttion: 
@@ -26,5 +26,8 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, 'src')
     }
+  },
+  server: {
+    hmr: true,
   }
 })
