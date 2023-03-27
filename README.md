@@ -4,7 +4,7 @@
  * @Author: chenpengfei
  * @Date: 2023-02-16 15:49:27
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-03-16 10:50:19
+ * @LastEditTime: 2023-03-27 15:12:48
 -->
 # Vue 3 + TypeScript + Vite
 
@@ -19,6 +19,17 @@ This template should help get you started developing with Vue 3 and TypeScript i
 ### Vite配置踩坑
 1. https://www.cnblogs.com/tbfboke/p/16738297.html
 2. [Vite中配置@别名](./src/docs/vite-alias.md)
+3. [环境变量](https://vitejs.cn/guide/env-and-mode.html#env-variables)
+4. 配置
+  1. https://www.weipxiu.com/8649.html
+  2. https://blog.csdn.net/qq_34621851/article/details/123088841
+
+### Vue Router 4
+1.[官方文档](https://router.vuejs.org/zh/)
+
+### Pinia
+1.[官方文档](https://pinia.vuejs.org/zh/introduction.html)
+2.[Vue上的推荐](https://cn.vuejs.org/guide/scaling-up/state-management.html#pinia)
 
 ### vue3
 * [生命周期](https://cn.vuejs.org/guide/essentials/lifecycle.html#lifecycle-diagram)
@@ -41,3 +52,4 @@ This template should help get you started developing with Vue 3 and TypeScript i
 ### others
 1. [副作用](https://coding.imooc.com/learn/questiondetail/gDANwPNllzzXK120.html)
 2. [Html 标签中以 aria- 开头的属性是什么](https://zhuanlan.zhihu.com/p/472243961)
+3. [URL对象](./src/docs/url.md)

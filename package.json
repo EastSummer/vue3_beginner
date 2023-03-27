@@ -6,12 +6,15 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
+    "build:dev": "vite build --mode dev",
+    "build:prod": "vite build --mode prod",
     "preview": "vite preview"
   },
   "dependencies": {
     "bootstrap": "^5.2.3",
     "mitt": "^3.0.0",
-    "vue": "^3.2.45"
+    "vue": "^3.2.45",
+    "vue-router": "^4.1.6"
   },
   "devDependencies": {
     "@types/node": "^18.15.0",

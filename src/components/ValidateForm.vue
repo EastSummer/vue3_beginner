@@ -25,7 +25,9 @@ const submitForm = () => {
 let funcArr: IValidateFunc[] = []
 
 const callback = (func: IValidateFunc) => {
-  funcArr.push(func)
+  if (func) {
+    funcArr.push(func)
+  }
 }
 emitter.on('from-item-created', callback)
 onUnmounted(() => {
