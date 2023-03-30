@@ -1,5 +1,6 @@
 <template>
   <div class="home-page">
+    <h2>{{ store.biggerColumnsLen }}</h2>
     <section class="py-5 text-center container">
       <div class="row py-lg-5">
         <div class="col-lg-6 col-md-8 mx-auto">
@@ -17,10 +18,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import ColumnList, { IColumnProps } from '../components/ColumnList.vue'
-import { testData } from '../testData'
+import ColumnList from '@/components/ColumnList.vue'
+import { useMainStore } from '@/stores'
+import { storeToRefs } from 'pinia';
 
-const list = ref(testData)
+const store = useMainStore()
+const { columns } = storeToRefs(store)
+const list = columns
 
 </script>

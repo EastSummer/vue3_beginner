@@ -1,3 +1,11 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: chenpengfei
+ * @Date: 2023-03-15 15:50:37
+ * @LastEditors: chenpengfei
+ * @LastEditTime: 2023-03-30 16:02:16
+-->
 <template>
   <form class="validate-form-container">
     <slot name="default"></slot>
@@ -17,12 +25,12 @@ type IValidateFunc = () => boolean
 
 const emits = defineEmits(['form-submit'])
 
+let funcArr: IValidateFunc[] = []
+
 const submitForm = () => {
-  const result = funcArr.map(func => func()).every(res => res)
+  const result = funcArr.map(func => func()).every(res => res)  
   emits('form-submit', result)
 }
-
-let funcArr: IValidateFunc[] = []
 
 const callback = (func: IValidateFunc) => {
   if (func) {

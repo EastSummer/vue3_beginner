@@ -1,3 +1,11 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: chenpengfei
+ * @Date: 2023-03-23 13:37:41
+ * @LastEditors: chenpengfei
+ * @LastEditTime: 2023-03-30 15:49:47
+-->
 <template>
   <div class="login-page">
     <validate-form @form-submit="onFormSubmit">
@@ -28,21 +36,23 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import ValidateInput, { IRulesProp } from '../components/ValidateInput.vue'
 import ValidateForm from '../components/ValidateForm.vue'
+import { useMainStore } from '@/stores';
 
 const router = useRouter()
-const emailVal = ref('emailVal')
+const store = useMainStore()
+const emailVal = ref('es@github.com')
 const emailRules = ref<IRulesProp>([
   { type: 'required', message: '电子邮箱地址不能为空' },
   { type: 'email', message: '请输入正确的电子邮箱格式' },
 ])
 const passwordVal = ref('')
-const passwordRules: IRulesProp = [
+const passwordRules = ref<IRulesProp>([
   { type: 'required', message: '密码不能为空' }
-]
+])
 const onFormSubmit = (result: boolean) => {
-  console.log('result', result)
   if (result) {
-    router.push({ name: 'column', params: { id: 1 } })
+    router.push('/')
+    store.login()
   }
 }
 </script>

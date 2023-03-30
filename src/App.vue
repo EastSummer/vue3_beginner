@@ -18,13 +18,12 @@
 
 <script setup lang="ts">
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { ref } from 'vue'
-import GlobalHeader, { IUserProps } from '@/components/GlobalHeader.vue'
-
-const currentUser = ref<IUserProps>({
-  isLogin: false,
-  name: '111'
-})
+import GlobalHeader from '@/components/GlobalHeader.vue'
+import { useMainStore } from './stores';
+import { storeToRefs } from 'pinia';
+const store = useMainStore()
+const { user } = storeToRefs(store)
+const currentUser = user
 
 
 </script>

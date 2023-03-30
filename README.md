@@ -4,7 +4,7 @@
  * @Author: chenpengfei
  * @Date: 2023-02-16 15:49:27
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-03-27 15:12:48
+ * @LastEditTime: 2023-03-28 16:28:48
 -->
 # Vue 3 + TypeScript + Vite
 
@@ -26,6 +26,7 @@ This template should help get you started developing with Vue 3 and TypeScript i
 
 ### Vue Router 4
 1.[官方文档](https://router.vuejs.org/zh/)
+2.[Vue Router 和 组合式 API](https://router.vuejs.org/zh/guide/advanced/composition-api.html)
 
 ### Pinia
 1.[官方文档](https://pinia.vuejs.org/zh/introduction.html)

@@ -4,7 +4,7 @@
  * @Author: chenpengfei
  * @Date: 2023-03-14 15:20:44
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-03-16 13:45:55
+ * @LastEditTime: 2023-03-30 16:04:21
 -->
 <template>
   <div class="validate-input-container pb-3">
@@ -69,6 +69,7 @@ const validateInput = () => {
       return passed
     })
     inputRef.error = !allPassed
+    return allPassed
   }
 }
 
