@@ -4,7 +4,7 @@
  * @Author: chenpengfei
  * @Date: 2023-03-23 13:37:41
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-03-30 15:49:47
+ * @LastEditTime: 2023-03-31 14:11:01
 -->
 <template>
   <div class="login-page">
@@ -12,7 +12,8 @@
       <div class="mb-3">
         <label class="form-label">邮箱地址</label>
         <validate-input
-          :rules="emailRules" v-model="emailVal"
+          :rules="emailRules"
+          v-model="emailVal"
           placeholder="请输入邮箱地址"
           type="text"
           ref="inputRef"

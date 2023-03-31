@@ -49,6 +49,7 @@ This template should help get you started developing with Vue 3 and TypeScript i
 
 ### 插件
 1. [Mitt](./src/docs/mitt.md)
+2. [Vue Devtools](https://devtools.vuejs.org/guide/installation.html)
 
 ### others
 1. [副作用](https://coding.imooc.com/learn/questiondetail/gDANwPNllzzXK120.html)

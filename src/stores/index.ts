@@ -4,15 +4,17 @@
  * @Author: chenpengfei
  * @Date: 2023-03-29 15:35:24
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-03-30 16:44:19
+ * @LastEditTime: 2023-03-31 11:14:50
  */
 import { defineStore } from 'pinia'
-import { testData, testPosts } from '@/testData'
+import { testData, testPosts, IPostProps } from '@/testData'
+export type { IColumnProps, IPostProps } from '@/testData'
 
 interface IUserProps {
   isLogin: boolean
   name?: string
   id?: number
+  columnId?: number
 }
 
 export const useMainStore = defineStore('main', {
@@ -21,7 +23,8 @@ export const useMainStore = defineStore('main', {
     posts: testPosts,
     user: {
       isLogin: false,
-    } as IUserProps
+      columnId: 1,
+    } as IUserProps,
   }),
   getters: {
     biggerColumnsLen(state) {
@@ -42,5 +45,8 @@ export const useMainStore = defineStore('main', {
         name: 'EastSummer',
       }
     },
+    createPost(newPost: IPostProps) {
+      this.posts.push(newPost)
+    }
   },
 })

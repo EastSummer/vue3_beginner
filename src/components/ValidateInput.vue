@@ -4,18 +4,28 @@
  * @Author: chenpengfei
  * @Date: 2023-03-14 15:20:44
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-03-30 16:04:21
+ * @LastEditTime: 2023-03-31 14:19:56
 -->
 <template>
   <div class="validate-input-container pb-3">
     <input
+      v-if="tag !== 'textarea'"
       class="form-control"
       :class="{'is-invalid': inputRef.error}"
       :value="inputRef.val"
       @blur="validateInput"
       @input="updateValue"
       v-bind="$attrs"
-    >
+    />
+    <textarea
+      v-else
+      class="form-control"
+      :class="{'is-invalid': inputRef.error}"
+      :value="inputRef.val"
+      @blur="validateInput"
+      @input="updateValue"
+      v-bind="$attrs"
+    />
     <span v-if="inputRef.error" class="invalid-feedback">{{inputRef.message}}</span>
   </div>
 </template>
@@ -26,6 +36,7 @@ interface IRuleProp {
   message: string;
 }
 export type IRulesProp = IRuleProp[]
+export type ITagType = 'input' | 'textarea'
 export default {
   name: 'ValidateInput',
   inheritAttrs: false,
@@ -38,10 +49,13 @@ import emitter from '@/utils/EventBus'
 
 const emailReg = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   rules: IRulesProp,
   modelValue: string,
-}>()
+  tag?: ITagType,
+}>(), {
+  tag: () => 'input',
+})
 
 const emits = defineEmits(['update:modelValue'])
 
