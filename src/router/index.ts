@@ -25,6 +25,7 @@ const routes = [
     path: '/login',
     name: 'login',
     component: Login,
+    meta: { redirectAlreadyLogin: true },
   },
   {
     path: '/column/:id',
@@ -34,7 +35,8 @@ const routes = [
   {
     path: '/create',
     name: 'create',
-    component: CreatePost
+    component: CreatePost,
+    meta: { requiredLogin: true },
   },
 ]
 
