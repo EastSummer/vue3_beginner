@@ -4,11 +4,10 @@
  * @Author: chenpengfei
  * @Date: 2023-03-29 15:35:24
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-03-31 11:14:50
+ * @LastEditTime: 2023-04-20 18:40:28
  */
 import { defineStore } from 'pinia'
-import { testData, testPosts, IPostProps } from '@/testData'
-export type { IColumnProps, IPostProps } from '@/testData'
+import httpRequest from '@/utils/httpRequest'
 
 interface IUserProps {
   isLogin: boolean
@@ -16,25 +15,52 @@ interface IUserProps {
   id?: number
   columnId?: number
 }
+export interface IColumnsProps {
+  count: number
+  pageSize: number
+  currentPage: number
+  list: IColumnProps[]
+}
+export interface IColumnProps {
+  _id: string;
+  title: string;
+  avatar?: IImageProps;
+  description: string;
+}
+export interface IImageProps {
+  _id?: string
+  url?: string
+  createAt?: string
+}
+export interface IPostsProps {
+  count: number
+  list: IPostProps[]
+}
+export interface IPostProps {
+  _id: string
+  title: string
+  excerpt?: string
+  content?: string
+  image?: IImageProps
+  createdAt: string
+  column: string
+}
 
 export const useMainStore = defineStore('main', {
   state: () => ({
-    columns: testData,
-    posts: testPosts,
+    columns: [] as IColumnProps[],
+    posts: [] as IPostProps[],
     user: {
       isLogin: false,
       columnId: 1,
     } as IUserProps,
   }),
   getters: {
-    biggerColumnsLen(state) {
-      return state.columns.filter(col => col.id > 2).length
-    },
     getColumnById: (state) => {
-      return (id: number) => state.columns.find(col => col.id === id)
+      return (id: string) => state.columns.find(col => col._id === id)
     },
     getPostsByColId: (state) => {
-      return (colId: number) => state.posts.filter(post => post.columnId === colId)
+      return (colId: string) => state.posts.filter(post => post.column === colId)
     }
   },
   actions: {
@@ -47,6 +73,21 @@ export const useMainStore = defineStore('main', {
     },
     createPost(newPost: IPostProps) {
       this.posts.push(newPost)
+    },
+    fetchColumns() {      
+      httpRequest.get<IColumnsProps>('/columns').then(res => {
+        this.columns = res.data.list
+      })
+    },
+    fetchColumn(cid: string) {
+      httpRequest.get<IColumnProps>(`/columns/${cid}`).then(res => {
+        this.columns = [res.data]
+      })
+    },
+    fetchPosts(cid: string) {
+      httpRequest.get<IPostsProps>(`/columns/${cid}/posts`).then(res => {
+        this.posts = res.data.list
+      })
     }
   },
 })

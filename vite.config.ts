@@ -4,7 +4,7 @@
  * @Author: chenpengfei
  * @Date: 2023-02-16 15:49:27
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-03-27 12:03:48
+ * @LastEditTime: 2023-04-20 10:00:30
  */
 /*
  * @Descripttion: 
@@ -44,6 +44,11 @@ export default defineConfig(({ command, mode }) => {
     server: {
       port: 9999,
       hmr: true,
+      proxy: {
+        '/api': {
+          target: 'http://apis.imooc.com/',
+        },
+      },
     },
     build: {
       outDir: env.VITE_OUTDIR,
