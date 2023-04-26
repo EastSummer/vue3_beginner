@@ -4,9 +4,11 @@
  * @Author: EastSummer
  * @Date: 2021-06-24 08:46:03
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-04-07 15:17:56
+ * @LastEditTime: 2023-04-26 14:00:18
  */
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
+import { useMainStore } from '@/stores'
+
 
 export default class Interceptors {
   service: AxiosInstance
@@ -21,6 +23,9 @@ export default class Interceptors {
     // 请求拦截
     this.service.interceptors.request.use(
       (config) => {
+        // loading
+        const store = useMainStore()
+        store.setLoading(true)
         // get 请求，添加到 url 中
         if (config.method === 'get') {
           config.params = { ...config.params, icode: '3074FF74C3C8A38A' }
@@ -43,6 +48,12 @@ export default class Interceptors {
     // 响应拦截
     this.service.interceptors.response.use(
       (response): any => {
+        // loading
+        const store = useMainStore()
+        const timer = setTimeout(() => {
+          store.setLoading(false)
+          if (timer) clearTimeout(timer)
+        }, 1000);
         // 下载文件
         if (response.headers['content-type'] && response.headers['content-type'].includes('application/octet-stream')) {
           // downloadBlob(response)

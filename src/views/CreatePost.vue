@@ -1,3 +1,11 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: chenpengfei
+ * @Date: 2023-03-31 10:44:28
+ * @LastEditors: chenpengfei
+ * @LastEditTime: 2023-04-20 19:22:41
+-->
 <template>
   <div class="create-post-page">
     <h4>新建文章</h4>
@@ -51,10 +59,10 @@ const onFormSubmit = (result: boolean) => {
     const { columnId } = store.user
     if (columnId) {
       const newPost: IPostProps = {
-        id: new Date().getTime(),
+        _id: new Date().getTime().toString(),
         title: titleVal.value,
         content: contentVal.value,
-        columnId,
+        column: columnId.toString(),
         createdAt: new Date().toLocaleString(),
       }
       store.createPost(newPost)

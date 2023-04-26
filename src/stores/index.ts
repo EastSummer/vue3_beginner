@@ -4,7 +4,7 @@
  * @Author: chenpengfei
  * @Date: 2023-03-29 15:35:24
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-04-20 18:40:28
+ * @LastEditTime: 2023-04-26 13:57:09
  */
 import { defineStore } from 'pinia'
 import httpRequest from '@/utils/httpRequest'
@@ -54,6 +54,7 @@ export const useMainStore = defineStore('main', {
       isLogin: false,
       columnId: 1,
     } as IUserProps,
+    loading: false,
   }),
   getters: {
     getColumnById: (state) => {
@@ -74,7 +75,7 @@ export const useMainStore = defineStore('main', {
     createPost(newPost: IPostProps) {
       this.posts.push(newPost)
     },
-    fetchColumns() {      
+    fetchColumns() {
       httpRequest.get<IColumnsProps>('/columns').then(res => {
         this.columns = res.data.list
       })
@@ -88,6 +89,9 @@ export const useMainStore = defineStore('main', {
       httpRequest.get<IPostsProps>(`/columns/${cid}/posts`).then(res => {
         this.posts = res.data.list
       })
+    },
+    setLoading(status: boolean) {
+      this.loading = status
     }
   },
 })
