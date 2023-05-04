@@ -4,7 +4,7 @@
  * @Author: chenpengfei
  * @Date: 2023-03-23 13:37:41
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-03-31 14:11:01
+ * @LastEditTime: 2023-04-28 14:18:48
 -->
 <template>
   <div class="login-page">
@@ -41,19 +41,25 @@ import { useMainStore } from '@/stores';
 
 const router = useRouter()
 const store = useMainStore()
-const emailVal = ref('es@github.com')
+const emailVal = ref('111@test.com')
 const emailRules = ref<IRulesProp>([
   { type: 'required', message: '电子邮箱地址不能为空' },
   { type: 'email', message: '请输入正确的电子邮箱格式' },
 ])
-const passwordVal = ref('')
+const passwordVal = ref('111111')
 const passwordRules = ref<IRulesProp>([
   { type: 'required', message: '密码不能为空' }
 ])
 const onFormSubmit = (result: boolean) => {
   if (result) {
-    router.push('/')
-    store.login()
+    const data = {
+      email: emailVal.value,
+      password: passwordVal.value,
+    }
+    store.login(data).then(data => {
+      console.log('login-data: ', data)
+      router.push('/')
+    })
   }
 }
 </script>

@@ -4,10 +4,11 @@ export interface IApiObj {
   params: any,
 }
 
-const prefix = '/api'
+// const prefix = '/api'
+const prefix = ''
 
 const apis: any = {
-  columns: '/columns', // 查询子专题枚举
+  login: '/user/login',
 }
 
 export default function getApi(key: string | IApiObj): string {

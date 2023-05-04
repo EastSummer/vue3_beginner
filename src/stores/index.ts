@@ -4,16 +4,16 @@
  * @Author: chenpengfei
  * @Date: 2023-03-29 15:35:24
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-04-26 13:57:09
+ * @LastEditTime: 2023-05-04 15:46:47
  */
 import { defineStore } from 'pinia'
 import httpRequest from '@/utils/httpRequest'
 
-interface IUserProps {
-  isLogin: boolean
-  name?: string
-  id?: number
-  columnId?: number
+export interface IUserProps {
+  isLogin?: boolean
+  nickName?: string
+  _id?: number
+  column?: number
 }
 export interface IColumnsProps {
   count: number
@@ -45,6 +45,14 @@ export interface IPostProps {
   createdAt: string
   column: string
 }
+export interface IAccount {
+  email: string
+  password: string
+}
+export interface IGlobalErrorProps {
+  status: boolean
+  message?: string
+}
 
 export const useMainStore = defineStore('main', {
   state: () => ({
@@ -52,9 +60,10 @@ export const useMainStore = defineStore('main', {
     posts: [] as IPostProps[],
     user: {
       isLogin: false,
-      columnId: 1,
     } as IUserProps,
     loading: false,
+    token: localStorage.getItem('token') || '',
+    error: { status: false } as IGlobalErrorProps
   }),
   getters: {
     getColumnById: (state) => {
@@ -65,12 +74,17 @@ export const useMainStore = defineStore('main', {
     }
   },
   actions: {
-    login() {
-      this.user = {
-        ...this.user,
-        isLogin: true,
-        name: 'EastSummer',
-      }
+    login(data: IAccount) {
+      return httpRequest.post<IAccount, any>({
+        url: 'login',
+        data,
+      }).then(res => {
+        const { token } = res.data
+        this.token = token
+        localStorage.setItem('token', token)
+        httpRequest.axios.defaults.headers.common.Authorization = `Bearer ${token}`
+        return this.fetchCurrentUser()
+      })
     },
     createPost(newPost: IPostProps) {
       this.posts.push(newPost)
@@ -92,6 +106,18 @@ export const useMainStore = defineStore('main', {
     },
     setLoading(status: boolean) {
       this.loading = status
-    }
+    },
+    setError(e: IGlobalErrorProps) {
+      this.error = e
+    },
+    fetchCurrentUser() {
+      return httpRequest.get<IUserProps>('/user/current').then(res => {
+        this.user = {
+          isLogin: true,
+          ...res.data
+        }
+        return res.data
+      })
+    },
   },
 })

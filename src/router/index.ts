@@ -12,7 +12,7 @@ import Login from '@/views/Login.vue'
 import ColumnDetail from '@/views/ColumnDetail.vue'
 import CreatePost from '@/views/CreatePost.vue';
 
-console.log(import.meta.env.VITE_BASE_URL);
+console.log('import.meta.env: ', import.meta.env.VITE_BASE_URL);
 
 
 const routes = [

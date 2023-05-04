@@ -4,12 +4,13 @@
  * @Author: chenpengfei
  * @Date: 2023-02-16 15:49:27
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-04-26 14:54:16
+ * @LastEditTime: 2023-05-04 15:51:48
 -->
 <template>
   <div class="container-fluid px-0 flex-shrink-0">
     <global-header :user="user" />
     <Loader v-if="loading" />
+    <h1>{{error.message}}</h1>
     <router-view></router-view>
     <footer class="text-center py-4 text-secondary bg-light mt-6">
       <small>
@@ -31,8 +32,17 @@ import GlobalHeader from '@/components/GlobalHeader.vue'
 import Loader from '@/components/Loader.vue'
 import { useMainStore } from './stores';
 import { storeToRefs } from 'pinia';
+import { onMounted } from 'vue';
+import httpRequest from './utils/httpRequest';
 const store = useMainStore()
-const { user, loading } = storeToRefs(store)
+const { user, loading, token, error } = storeToRefs(store)
+
+onMounted(() => {
+  if (!user.value.isLogin && token.value) {
+    httpRequest.axios.defaults.headers.common.Authorization = `Bearer ${token.value}`
+    store.fetchCurrentUser()
+  }
+})
 
 
 </script>

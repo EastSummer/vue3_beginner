@@ -4,7 +4,7 @@
  * @Author: chenpengfei
  * @Date: 2021-06-29 16:17:06
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-04-20 18:21:13
+ * @LastEditTime: 2023-04-28 14:10:18
  */
 import {
   AxiosInstance, AxiosRequestConfig,
@@ -44,10 +44,10 @@ class HttpRequest {
         (res) => {
           const { code, message } = res.data
           // 处理业务错误
-          if (code !== 200) {
+          if (code !== 0) {
             if (useCatch) reject(res.data)
           } else {
-            resolve(res)
+            resolve(res.data)
           }
         },
       ).catch((error: any) => {

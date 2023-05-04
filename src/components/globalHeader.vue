@@ -4,7 +4,7 @@
  * @Author: chenpengfei
  * @Date: 2023-03-13 13:38:29
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-03-15 15:36:57
+ * @LastEditTime: 2023-05-04 14:18:25
 -->
 <template>
   <nav class="navbar navbar-dark bg-primary justify-content-between mb-4 px-4">
@@ -23,7 +23,7 @@
     </ul>
     <ul v-else class="list-inline mb-0">
       <li class="list-inline-item">
-        <dropdown :title="`你好 ${user?.name}`">
+        <dropdown :title="`你好 ${user?.nickName}`">
           <DropdownItem>
             <router-link to="/create" class="dropdown-item">
               新建文章
@@ -41,17 +41,10 @@
   </nav>
 </template>
 
-<script lang="ts">
-export interface IUserProps {
-  isLogin: boolean;
-  name?: string;
-  id?: number;
-}
-</script>
-
 <script setup lang="ts">
 import Dropdown from './Dropdown.vue';
 import DropdownItem from './DropdownItem.vue'
+import { IUserProps } from '@/stores'
 
 const props = defineProps<{
   user: IUserProps

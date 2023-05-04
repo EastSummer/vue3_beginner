@@ -4,7 +4,7 @@
  * @Author: EastSummer
  * @Date: 2021-06-24 08:46:03
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-04-26 14:00:18
+ * @LastEditTime: 2023-05-04 15:56:58
  */
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 import { useMainStore } from '@/stores'
@@ -53,7 +53,7 @@ export default class Interceptors {
         const timer = setTimeout(() => {
           store.setLoading(false)
           if (timer) clearTimeout(timer)
-        }, 1000);
+        }, 500);
         // 下载文件
         if (response.headers['content-type'] && response.headers['content-type'].includes('application/octet-stream')) {
           // downloadBlob(response)
@@ -61,10 +61,15 @@ export default class Interceptors {
         }
         return response
       },
-      (error) => {
+      (e) => {
+        // loading
+        const store = useMainStore()
+        store.setLoading(false)
+        const { error } = e.response.data
+        store.error = { status: true, message: error }
         // 响应失败处理
-        console.warn(error)
-        return Promise.reject(error)
+        console.warn(e.response.data)
+        return Promise.reject(e.response.data)
       },
     )
   }
