@@ -4,7 +4,7 @@
  * @Author: EastSummer
  * @Date: 2021-06-24 08:46:03
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-05-04 15:56:58
+ * @LastEditTime: 2023-05-08 11:10:37
  */
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 import { useMainStore } from '@/stores'
@@ -26,17 +26,18 @@ export default class Interceptors {
         // loading
         const store = useMainStore()
         store.setLoading(true)
+        store.error = { status: false, message: '' }
         // get 请求，添加到 url 中
         if (config.method === 'get') {
-          config.params = { ...config.params, icode: '3074FF74C3C8A38A' }
+          config.params = { ...config.params, icode: '12FFC5220EF64886' }
         }
         // 其他请求，添加到 body 中
         // 如果是上传文件，添加到 FormData 中
         if (config.data instanceof FormData) {
-          config.data.append('icode', '3074FF74C3C8A38A')
+          config.data.append('icode', '12FFC5220EF64886')
         } else {
         // 普通的 body 对象，添加到 data 中
-          config.data = { ...config.data, icode: '3074FF74C3C8A38A' }
+          config.data = { ...config.data, icode: '12FFC5220EF64886' }
         }
         return config
       },

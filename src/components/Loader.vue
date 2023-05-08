@@ -1,3 +1,11 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: chenpengfei
+ * @Date: 2023-04-26 14:45:55
+ * @LastEditors: chenpengfei
+ * @LastEditTime: 2023-05-04 16:37:11
+-->
 <template>
   <Teleport to="#back">
     <div
@@ -20,6 +28,7 @@
 
 <script setup lang="ts">
 import { onUnmounted } from 'vue'
+import useDOMCreate from '@/hooks/useDOMCreate'
 
 const props = withDefaults(defineProps<{
   text?: string,
@@ -27,13 +36,9 @@ const props = withDefaults(defineProps<{
 }>(), {
   text: 'loading...',
 })
-const node = document.createElement('div')
-node.id = 'back'
-document.body.appendChild(node)
 
-onUnmounted(() => {
-  document.body.removeChild(node)
-})
+useDOMCreate('back')
+
 </script>
 
 <style>

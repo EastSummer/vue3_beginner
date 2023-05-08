@@ -4,13 +4,12 @@
  * @Author: chenpengfei
  * @Date: 2023-02-16 15:49:27
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-05-04 15:51:48
+ * @LastEditTime: 2023-05-08 11:09:16
 -->
 <template>
   <div class="container-fluid px-0 flex-shrink-0">
     <global-header :user="user" />
     <Loader v-if="loading" />
-    <h1>{{error.message}}</h1>
     <router-view></router-view>
     <footer class="text-center py-4 text-secondary bg-light mt-6">
       <small>
@@ -32,8 +31,9 @@ import GlobalHeader from '@/components/GlobalHeader.vue'
 import Loader from '@/components/Loader.vue'
 import { useMainStore } from './stores';
 import { storeToRefs } from 'pinia';
-import { onMounted } from 'vue';
+import { onMounted, watch } from 'vue';
 import httpRequest from './utils/httpRequest';
+import createMessage from './components/createMessage';
 const store = useMainStore()
 const { user, loading, token, error } = storeToRefs(store)
 
@@ -44,6 +44,12 @@ onMounted(() => {
   }
 })
 
+watch(error, () => {
+  const { status, message } = error.value
+  if(status && message) {
+    createMessage(message, 'error')
+  }
+})
 
 </script>
 

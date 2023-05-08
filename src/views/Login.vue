@@ -4,7 +4,7 @@
  * @Author: chenpengfei
  * @Date: 2023-03-23 13:37:41
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-04-28 14:18:48
+ * @LastEditTime: 2023-05-08 13:41:36
 -->
 <template>
   <div class="login-page">
@@ -38,6 +38,7 @@ import { useRouter } from 'vue-router';
 import ValidateInput, { IRulesProp } from '../components/ValidateInput.vue'
 import ValidateForm from '../components/ValidateForm.vue'
 import { useMainStore } from '@/stores';
+import createMessage from '@/components/createMessage';
 
 const router = useRouter()
 const store = useMainStore()
@@ -58,7 +59,11 @@ const onFormSubmit = (result: boolean) => {
     }
     store.login(data).then(data => {
       console.log('login-data: ', data)
-      router.push('/')
+      createMessage('登录成功 2秒后跳转首页', 'success')
+      const timer = setTimeout(() => {
+        if (timer) clearTimeout(timer)
+        router.push('/')
+      }, 2000)
     })
   }
 }

@@ -4,7 +4,7 @@
  * @Author: chenpengfei
  * @Date: 2023-03-15 15:50:37
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-03-30 16:02:16
+ * @LastEditTime: 2023-05-04 16:34:52
 -->
 <template>
   <form class="validate-form-container">
@@ -45,5 +45,7 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-
+.submit-area {
+  display: inline-block;
+}
 </style>

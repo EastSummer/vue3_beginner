@@ -4,7 +4,7 @@
  * @Author: chenpengfei
  * @Date: 2023-02-16 15:49:27
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-04-28 16:10:35
+ * @LastEditTime: 2023-05-05 16:44:29
 -->
 # Vue 3 + TypeScript + Vite
 
@@ -46,6 +46,8 @@ This template should help get you started developing with Vue 3 and TypeScript i
 7. [响应性语法糖(已废弃)](./src/docs/ref-sugar.md)
 8. 支持多标签，不需要root节点
 9. [PropType<T>](https://cn.vuejs.org/api/utility-types.html#proptype-t)
+10. nextTick 使用 nextTick 包裹以后，会在上一次执行完毕，再执行下一次
+11. https://coding.imooc.com/learn/questiondetail/lz14NYLqLagXK2p9.html
 
 ### 插件
 1. [Mitt](./src/docs/mitt.md)
