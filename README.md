@@ -4,7 +4,7 @@
  * @Author: chenpengfei
  * @Date: 2023-02-16 15:49:27
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-05-05 16:44:29
+ * @LastEditTime: 2023-05-10 13:33:06
 -->
 # Vue 3 + TypeScript + Vite
 
@@ -23,6 +23,7 @@ This template should help get you started developing with Vue 3 and TypeScript i
 4. 配置
   1. https://www.weipxiu.com/8649.html
   2. https://blog.csdn.net/qq_34621851/article/details/123088841
+5. [vite+jsx/tsx](https://blog.csdn.net/qq_43699122/article/details/128066935)
 
 ### Vue Router 4
 1.[官方文档](https://router.vuejs.org/zh/)

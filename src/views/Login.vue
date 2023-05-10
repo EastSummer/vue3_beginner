@@ -4,7 +4,7 @@
  * @Author: chenpengfei
  * @Date: 2023-03-23 13:37:41
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-05-08 13:41:36
+ * @LastEditTime: 2023-05-10 15:24:52
 -->
 <template>
   <div class="login-page">
@@ -59,7 +59,7 @@ const onFormSubmit = (result: boolean) => {
     }
     store.login(data).then(data => {
       console.log('login-data: ', data)
-      createMessage('登录成功 2秒后跳转首页', 'success')
+      createMessage('登录成功 2秒后跳转首页', 'success', 2000)
       const timer = setTimeout(() => {
         if (timer) clearTimeout(timer)
         router.push('/')

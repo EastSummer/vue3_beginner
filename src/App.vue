@@ -47,7 +47,7 @@ onMounted(() => {
 watch(error, () => {
   const { status, message } = error.value
   if(status && message) {
-    createMessage(message, 'error')
+    createMessage(message, 'error', 2000)
   }
 })
 
