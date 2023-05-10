@@ -4,7 +4,7 @@
  * @Author: chenpengfei
  * @Date: 2023-03-29 15:35:24
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-05-04 15:46:47
+ * @LastEditTime: 2023-05-10 17:59:24
  */
 import { defineStore } from 'pinia'
 import httpRequest from '@/utils/httpRequest'
@@ -85,6 +85,12 @@ export const useMainStore = defineStore('main', {
         httpRequest.axios.defaults.headers.common.Authorization = `Bearer ${token}`
         return this.fetchCurrentUser()
       })
+    },
+    logout() {
+      this.token = ''
+      this.user = { isLogin: false }
+      localStorage.removeItem('token')
+      delete httpRequest.axios.defaults.headers.common.Authorization
     },
     createPost(newPost: IPostProps) {
       this.posts.push(newPost)

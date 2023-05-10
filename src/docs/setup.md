@@ -47,4 +47,7 @@ Q3. 选项式api与组合式api
 
 <br />
 
+Q4. ref和reactive使用选择
+  > https://www.cnblogs.com/hgng/p/17254584.html
+
 1

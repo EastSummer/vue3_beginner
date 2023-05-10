@@ -9,6 +9,7 @@ const prefix = ''
 
 const apis: any = {
   login: '/user/login',
+  signup: '/users/',
 }
 
 export default function getApi(key: string | IApiObj): string {

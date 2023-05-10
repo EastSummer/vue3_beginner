@@ -32,8 +32,9 @@
 
 <script lang="ts">
 interface IRuleProp {
-  type: 'required' | 'email';
-  message: string;
+  type: 'required' | 'email' | 'custom'
+  message: string
+  validator?: () => boolean
 }
 export type IRulesProp = IRuleProp[]
 export type ITagType = 'input' | 'textarea'
@@ -76,6 +77,9 @@ const validateInput = () => {
           break
         case 'email':
           passed = emailReg.test(inputRef.val)
+          break
+        case 'custom':
+        passed = rule.validator ? rule.validator() : true
           break
         default:
           break
