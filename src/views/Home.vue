@@ -11,20 +11,40 @@
         </div>
       </div>
     </section>
+    <uploader
+      action="upload"
+      :before-upload="beforeUpload"
+      @file-uploaded="onFileUploaded"
+    >
+      <template #uploaded="dataProps">
+        <img :src="dataProps.uploadedData.url" width="500" />
+      </template>
+    </uploader>
     <h4 class="font-weight-bold text-center">发现精彩</h4>
-    <column-list :list="list"></column-list>
+    <column-list :list="columns"></column-list>
   </div>
 </template>
 
 <script setup lang="ts">
 import ColumnList from '@/components/ColumnList.vue'
-import { useMainStore } from '@/stores'
+import Uploader from '@/components/Uploader.vue'
+import createMessage from '@/components/createMessage';
+import { useMainStore, IImageProps } from '@/stores'
 import { storeToRefs } from 'pinia';
 import { onMounted } from 'vue';
 
 const store = useMainStore()
 const { columns } = storeToRefs(store)
-const list = columns
+const beforeUpload = (file: File) => {
+  const isJPG = (file.type === 'image/jpeg')
+  if (!isJPG) {
+    createMessage('上传图片只能是 JPG 格式!', 'error', 2000)
+  }
+  return isJPG
+}
+const onFileUploaded = (rawData: IImageProps) => {
+  createMessage(`上传图片ID ${rawData._id}`, 'success', 2000)
+}
 
 onMounted(() => {
   store.fetchColumns()

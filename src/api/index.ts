@@ -1,3 +1,11 @@
+/*
+ * @Descripttion: 
+ * @version: 
+ * @Author: chenpengfei
+ * @Date: 2023-04-07 14:33:11
+ * @LastEditors: chenpengfei
+ * @LastEditTime: 2023-05-17 14:31:13
+ */
 
 export interface IApiObj {
   urlKey: string,
@@ -10,6 +18,7 @@ const prefix = ''
 const apis: any = {
   login: '/user/login',
   signup: '/users/',
+  upload: '/upload',
 }
 
 export default function getApi(key: string | IApiObj): string {

@@ -4,7 +4,7 @@
  * @Author: EastSummer
  * @Date: 2021-06-24 08:46:03
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-05-08 11:10:37
+ * @LastEditTime: 2023-05-24 15:55:12
  */
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 import { useMainStore } from '@/stores'
@@ -66,6 +66,7 @@ export default class Interceptors {
         // loading
         const store = useMainStore()
         store.setLoading(false)
+        // 服务器返回错误是e.response.data， 网络错误是e.message
         const { error } = e.response.data
         store.error = { status: true, message: error }
         // 响应失败处理

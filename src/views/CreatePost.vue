@@ -4,7 +4,7 @@
  * @Author: chenpengfei
  * @Date: 2023-03-31 10:44:28
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-04-20 19:22:41
+ * @LastEditTime: 2023-05-16 15:49:57
 -->
 <template>
   <div class="create-post-page">
@@ -56,17 +56,15 @@ const contentRules: IRulesProp = [
 ]
 const onFormSubmit = (result: boolean) => {
   if(result) {
-    const { columnId } = store.user
-    if (columnId) {
+    const { column } = store.user
+    if (column) {
       const newPost: IPostProps = {
-        _id: new Date().getTime().toString(),
         title: titleVal.value,
         content: contentVal.value,
-        column: columnId.toString(),
-        createdAt: new Date().toLocaleString(),
+        column,
       }
       store.createPost(newPost)
-      router.push({ name: 'column', params: { id: columnId } })
+      router.push({ name: 'column', params: { id: column } })
     }
   }
 }

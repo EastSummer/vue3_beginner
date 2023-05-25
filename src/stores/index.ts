@@ -8,12 +8,11 @@
  */
 import { defineStore } from 'pinia'
 import httpRequest from '@/utils/httpRequest'
-
 export interface IUserProps {
   isLogin?: boolean
   nickName?: string
   _id?: number
-  column?: number
+  column?: string
 }
 export interface IColumnsProps {
   count: number
@@ -37,12 +36,12 @@ export interface IPostsProps {
   list: IPostProps[]
 }
 export interface IPostProps {
-  _id: string
+  _id?: string
   title: string
   excerpt?: string
   content?: string
   image?: IImageProps
-  createdAt: string
+  createdAt?: string
   column: string
 }
 export interface IAccount {
