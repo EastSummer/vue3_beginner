@@ -4,14 +4,15 @@
  * @Author: chenpengfei
  * @Date: 2023-03-29 15:35:24
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-05-10 17:59:24
+ * @LastEditTime: 2023-05-26 19:13:19
  */
 import { defineStore } from 'pinia'
 import httpRequest from '@/utils/httpRequest'
+
 export interface IUserProps {
   isLogin?: boolean
   nickName?: string
-  _id?: number
+  _id?: string
   column?: string
 }
 export interface IColumnsProps {
@@ -30,19 +31,21 @@ export interface IImageProps {
   _id?: string
   url?: string
   createAt?: string
+  fitUrl?: string
 }
 export interface IPostsProps {
   count: number
   list: IPostProps[]
 }
 export interface IPostProps {
-  _id?: string
+  // _id?: string
   title: string
   excerpt?: string
   content?: string
-  image?: IImageProps
+  image?: IImageProps | string
   createdAt?: string
   column: string
+  author?: string
 }
 export interface IAccount {
   email: string
@@ -92,7 +95,12 @@ export const useMainStore = defineStore('main', {
       delete httpRequest.axios.defaults.headers.common.Authorization
     },
     createPost(newPost: IPostProps) {
-      this.posts.push(newPost)
+      return httpRequest.post<IPostProps, IPostProps>({
+        url: 'posts',
+        data: newPost,
+      }).then(res => {
+        this.posts.push(res.data)
+      })
     },
     fetchColumns() {
       httpRequest.get<IColumnsProps>('/columns').then(res => {

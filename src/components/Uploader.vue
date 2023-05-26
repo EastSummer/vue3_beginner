@@ -8,7 +8,11 @@
 -->
 <template>
   <div class="file-upload">
-    <div class="file-upload-container" @click.prevent="triggerUpload">
+    <div
+      class="file-upload-container"
+      @click.prevent="triggerUpload"
+      v-bind="$attrs"
+    >
       <slot v-if="fileStatus === 'loading'" name="loading">
         <button class="btn btn-primary" disabled>正在上传...</button>
       </slot>
@@ -27,6 +31,13 @@
     >
   </div>
 </template>
+
+<script lang="ts">
+export default {
+  name: 'Uploader',
+  inheritAttrs: false,
+}
+</script>
 
 <script setup lang="ts">
 import httpRequest from '@/utils/httpRequest'

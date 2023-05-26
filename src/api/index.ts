@@ -19,6 +19,7 @@ const apis: any = {
   login: '/user/login',
   signup: '/users/',
   upload: '/upload',
+  posts: '/posts',
 }
 
 export default function getApi(key: string | IApiObj): string {

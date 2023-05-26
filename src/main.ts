@@ -4,7 +4,7 @@
 * @Author: chenpengfei
 * @Date: 2023-02-16 15:49:27
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-03-31 16:51:30
+ * @LastEditTime: 2023-05-25 16:45:57
 */
 import { useMainStore } from './stores/index';
 import { createApp } from 'vue'
@@ -12,6 +12,7 @@ import { createPinia } from 'pinia'
 import './style.css'
 import App from './App.vue'
 import createRouter from './router'
+import httpRequest from './utils/httpRequest';
 
 const router = createRouter()
 const app = createApp(App)
@@ -23,11 +24,34 @@ app.mount('#app')
 
 router.beforeEach((to, from, next) => {
   const store = useMainStore()
-  if (to.meta.requiredLogin && !store.user.isLogin) {
-    next({ name: 'login' })
-  } else if (to.meta.redirectAlreadyLogin && store.user.isLogin) {
-    next('/')
+  const { user, token, fetchCurrentUser, logout } = store
+  const { requiredLogin, redirectAlreadyLogin } = to.meta
+  if (!user.isLogin) {
+    if (token) {
+      httpRequest.axios.defaults.headers.common.Authorization = `Bearer ${token}`
+      fetchCurrentUser().then(() => {
+        if (redirectAlreadyLogin) {
+          next('/')
+        } else {
+          next()
+        }
+      }).catch(e => {
+        console.error(e)
+        logout()
+        next('login')
+      })
+    } else {
+      if (requiredLogin) {
+        next('login')
+      } else {
+        next()
+      }
+    }
   } else {
-    next()
+    if (redirectAlreadyLogin) {
+      next('/')
+    } else {
+      next()
+    }
   }
 })

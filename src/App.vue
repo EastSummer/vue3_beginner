@@ -35,14 +35,7 @@ import { onMounted, watch } from 'vue';
 import httpRequest from './utils/httpRequest';
 import createMessage from './components/createMessage';
 const store = useMainStore()
-const { user, loading, token, error } = storeToRefs(store)
-
-onMounted(() => {
-  if (!user.value.isLogin && token.value) {
-    httpRequest.axios.defaults.headers.common.Authorization = `Bearer ${token.value}`
-    store.fetchCurrentUser()
-  }
-})
+const { user, loading, error } = storeToRefs(store)
 
 watch(error, () => {
   const { status, message } = error.value
