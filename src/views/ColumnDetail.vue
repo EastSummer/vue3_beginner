@@ -27,7 +27,7 @@ import { computed } from 'vue';
 import PostList from '@/components/PostList.vue'
 import { useMainStore } from '@/stores';
 import { onMounted } from 'vue';
-import { generateFitUrl } from '@/utils/helper';
+import { addColumnAvatar } from '@/utils/helper';
 const route = useRoute()
 const store = useMainStore()
 const currentId = route.params.id as string
@@ -43,7 +43,7 @@ const list = computed(() => store.getPostsByColId(currentId))
 const column = computed(() => {
   const selectCol = store.getColumnById(currentId)
   if (selectCol) {
-    generateFitUrl(selectCol, 100, 100)
+    addColumnAvatar(selectCol, 100, 100)
   }
   return selectCol
 })

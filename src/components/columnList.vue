@@ -27,7 +27,7 @@
 import { defineProps, PropType, computed } from 'vue'
 // import img from '@/assets/column.jpg'
 import { IColumnProps } from '@/stores/index'
-import { generateFitUrl } from '@/utils/helper'
+import { addColumnAvatar } from '@/utils/helper'
 
 // 非ts写法
 // const props = defineProps({
@@ -48,7 +48,7 @@ const columnList = computed(() => props.list.map(col => {
   //     url: img,
   //   }
   // }
-  generateFitUrl(col, 50, 50)
+  addColumnAvatar(col, 50, 50)
   return col
 }))
 

@@ -4,7 +4,7 @@
  * @Author: chenpengfei
  * @Date: 2023-03-29 15:35:24
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-05-26 19:13:19
+ * @LastEditTime: 2023-05-29 14:24:02
  */
 import { defineStore } from 'pinia'
 import httpRequest from '@/utils/httpRequest'
@@ -14,6 +14,9 @@ export interface IUserProps {
   nickName?: string
   _id?: string
   column?: string
+  email?: string;
+  avatar?: IImageProps
+  description?: string
 }
 export interface IColumnsProps {
   count: number
@@ -38,7 +41,7 @@ export interface IPostsProps {
   list: IPostProps[]
 }
 export interface IPostProps {
-  // _id?: string
+  _id?: string
   title: string
   excerpt?: string
   content?: string
@@ -73,6 +76,9 @@ export const useMainStore = defineStore('main', {
     },
     getPostsByColId: (state) => {
       return (colId: string) => state.posts.filter(post => post.column === colId)
+    },
+    getCurrentPost: (state) => {
+      return (id: string) => state.posts.find(post => post._id === id)
     }
   },
   actions: {
@@ -115,6 +121,11 @@ export const useMainStore = defineStore('main', {
     fetchPosts(cid: string) {
       httpRequest.get<IPostsProps>(`/columns/${cid}/posts`).then(res => {
         this.posts = res.data.list
+      })
+    },
+    fetchPost(id: string) {
+      httpRequest.get<IPostProps>(`/posts/${id}`).then(res => {
+        this.posts = [res.data]
       })
     },
     setLoading(status: boolean) {

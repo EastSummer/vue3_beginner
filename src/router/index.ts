@@ -12,6 +12,7 @@ import Login from '@/views/Login.vue'
 import ColumnDetail from '@/views/ColumnDetail.vue'
 import CreatePost from '@/views/CreatePost.vue'
 import Signup from '@/views/Signup.vue'
+import PostDetail from '@/views/PostDetail.vue'
 
 console.log('import.meta.env: ', import.meta.env.VITE_BASE_URL);
 
@@ -38,6 +39,11 @@ const routes = [
     path: '/column/:id',
     name: 'column',
     component: ColumnDetail,
+  },
+  {
+    path: '/posts/:id',
+    name: 'post',
+    component: PostDetail,
   },
   {
     path: '/create',

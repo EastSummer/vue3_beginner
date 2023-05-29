@@ -1,11 +1,21 @@
-import { IColumnProps } from "@/stores"
+import { IColumnProps, IImageProps, IUserProps } from "@/stores"
 
-export function generateFitUrl(column: IColumnProps, width: number, height: number) {
-  if (column.avatar) {
-    column.avatar.fitUrl = column.avatar.url + `?x-oss-process=image/resize,m_pad,h_${height},w_${width}`
+export function generateFitUrl(data: IImageProps, width: number, height: number, format = ['m_pad']) {
+  if (data && data.url) {
+    const formatStr = format.reduce((prev, current) => {
+      return current + ',' + prev
+    }, '')
+    data.fitUrl = data.url + `?x-oss-process=image/resize,${formatStr}h_${height},w_${width}`
+  }
+}
+
+export function addColumnAvatar(data: IColumnProps | IUserProps, width: number, height: number) {
+  if (data?.avatar) {
+    generateFitUrl(data.avatar, width, height)
   } else {
-    column.avatar = {
-      fitUrl: require('@/assets/column.jpg')
+    const parseCol = data as IColumnProps
+    data.avatar = {
+      fitUrl: require(parseCol.title ? '@/assets/column.jpg' : '@/assets/avatar.jpg')
     }
   }
 }
