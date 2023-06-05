@@ -1,5 +1,6 @@
 import { IColumnProps, IImageProps, IUserProps } from "@/stores"
 
+// https://help.aliyun.com/document_detail/44688.html#title-y1e-xd2-5oo
 export function generateFitUrl(data: IImageProps, width: number, height: number, format = ['m_pad']) {
   if (data && data.url) {
     const formatStr = format.reduce((prev, current) => {

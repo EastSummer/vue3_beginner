@@ -4,7 +4,7 @@
  * @Author: chenpengfei
  * @Date: 2023-03-29 15:35:24
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-05-29 14:24:02
+ * @LastEditTime: 2023-06-02 10:55:12
  */
 import { defineStore } from 'pinia'
 import httpRequest from '@/utils/httpRequest'
@@ -48,7 +48,7 @@ export interface IPostProps {
   image?: IImageProps | string
   createdAt?: string
   column: string
-  author?: string
+  author?: string | IUserProps
 }
 export interface IAccount {
   email: string
@@ -124,8 +124,23 @@ export const useMainStore = defineStore('main', {
       })
     },
     fetchPost(id: string) {
-      httpRequest.get<IPostProps>(`/posts/${id}`).then(res => {
+      return httpRequest.get<IPostProps>(`/posts/${id}`).then(res => {
         this.posts = [res.data]
+        return res.data
+      })
+    },
+    updatePost({id, data}: {id: string, data: IPostProps}) {
+      return httpRequest.patch<IPostProps, IPostProps>({
+        url: `/posts/${id}`,
+        data,
+      }).then(res => {
+        this.posts = this.posts.map(post => {
+          if (post._id === res.data._id) {
+            return data
+          } else {
+            return post
+          }
+        })
       })
     },
     setLoading(status: boolean) {

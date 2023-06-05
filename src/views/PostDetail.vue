@@ -1,3 +1,11 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: chenpengfei
+ * @Date: 2023-05-29 14:03:32
+ * @LastEditors: chenpengfei
+ * @LastEditTime: 2023-05-31 16:42:28
+-->
 <template>
   <div class="post-detail-page">
     <article class="w-75 mx-auto mb-5 pb-3" v-if="currentPost">
@@ -10,6 +18,16 @@
         <span class="text-muted col text-right font-italic">发表于：{{currentPost.createdAt}}</span>
       </div>
       <div v-html="currentHTML"></div>
+      <div v-if="showEditArea" class="btn-group mt-5">
+        <router-link
+          type="button"
+          class="btn btn-success"
+          :to="{name: 'create', query: { id: currentPost._id}}"
+        >
+          编辑
+        </router-link>
+        <button type="button" class="btn btn-danger">删除</button>
+      </div>
     </article>
   </div>
 </template>
@@ -17,12 +35,12 @@
 <script setup lang="ts">
 import MarkdownIt from 'markdown-it'
 import UserProfile from '@/components/UserProfile.vue'
-import { IImageProps, useMainStore } from '@/stores'
+import { IImageProps, IUserProps, useMainStore } from '@/stores'
 import { useRoute } from 'vue-router'
 import { computed, onMounted } from 'vue'
 
 const store = useMainStore()
-const { fetchPost, getCurrentPost } = store
+const { fetchPost, getCurrentPost, user } = store
 const route = useRoute()
 const currentId = route.params.id as string
 const md = MarkdownIt()
@@ -31,6 +49,15 @@ const currentPost = computed(() => getCurrentPost(currentId))
 const currentHTML = computed(() => {
   if (currentPost.value && currentPost.value.content) {
     return md.render(currentPost.value.content)
+  }
+})
+const showEditArea = computed(() => {
+  const { isLogin, _id } = user
+  if (currentPost.value && currentPost.value.author && isLogin) {
+    const postAuthor = currentPost.value.author as IUserProps
+    return postAuthor._id === _id
+  } else {
+    return false
   }
 })
 const currentImageUrl = computed(() => {

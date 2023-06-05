@@ -4,7 +4,7 @@
  * @Author: chenpengfei
  * @Date: 2023-05-17 14:04:18
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-05-24 14:31:50
+ * @LastEditTime: 2023-06-02 11:07:03
 -->
 <template>
   <div class="file-upload">
@@ -41,18 +41,31 @@ export default {
 
 <script setup lang="ts">
 import httpRequest from '@/utils/httpRequest'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
 type IUploadStatus = 'ready' | 'loading' | 'success' | 'error'
 type CheckFunction = (file: File) => boolean
 const props = defineProps<{
   action: string,
   beforeUpload: CheckFunction,
+  // 两种写法
+  // uploaded: {
+  //   [key: string]: any
+  // },
+  uploaded: Record<string, any>
 }>()
 const emit = defineEmits(['file-uploaded', 'file-uploaded-error'])
 const fileInput = ref<null | HTMLInputElement>(null)
-const fileStatus = ref<IUploadStatus>('ready')
-const uploadedData = ref()
+const fileStatus = ref<IUploadStatus>(props.uploaded ? 'success' : 'ready')
+const uploadedData = ref(props.uploaded)
+
+watch(() => props.uploaded, newVal => {
+  console.log(newVal.data)
+  if (newVal) {
+    fileStatus.value = 'success'
+    uploadedData.value = newVal.data
+  }
+})
 
 const triggerUpload = () => {
   if (fileInput.value) {
@@ -82,7 +95,7 @@ const handleFileChange = (e: Event) => {
     }).then(resp => {
       // console.log('handleFileChange: ', resp.data)
       fileStatus.value = 'success'
-      uploadedData.value = resp.data
+      uploadedData.value = resp.data as Object
       emit('file-uploaded', resp.data)
     }).catch((error) => {
       fileStatus.value = 'error'

@@ -4,16 +4,17 @@
  * @Author: chenpengfei
  * @Date: 2023-03-31 10:44:28
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-05-26 19:14:08
+ * @LastEditTime: 2023-06-05 15:47:49
 -->
 <template>
   <div class="create-post-page">
-    <h4>新建文章</h4>
+    <h4>{{isEditMode ? '编辑文章' : '新建文章'}}</h4>
     <Uploader
       action="upload"
       class="d-flex align-items-center justify-content-center bg-light text-secondary w-100 my-4"
       :before-upload="beforeUpload"
       @file-uploaded="handleFileUploaded"
+      :uploaded="uploadedData"
     >
       <h2>点击上传头图</h2>
       <template #loading>
@@ -25,7 +26,10 @@
         </div>
       </template>
       <template #uploaded="dataProps">
-        <img :src="dataProps.uploadedData.url">
+        <div class="uploaded-area">
+          <img :src="dataProps.uploadedData?.url">
+          <h3>点击重新上传</h3>
+        </div>
       </template>
     </Uploader>
     <validate-form @form-submit="onFormSubmit">
@@ -50,7 +54,9 @@
         />
       </div>
       <template #submit>
-        <button class="btn btn-primary btn-large">发表文章</button>
+        <button class="btn btn-primary btn-large">
+          {{isEditMode ? '更新文章' : '发表文章'}}
+        </button>
       </template>
     </validate-form>
   </div>
@@ -61,13 +67,16 @@ import ValidateForm from '@/components/ValidateForm.vue'
 import ValidateInput, { IRulesProp } from '@/components/ValidateInput.vue'
 import Uploader from '@/components/Uploader.vue'
 import { useMainStore, IPostProps, IImageProps } from '@/stores';
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { onMounted, ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import createMessage from '@/components/createMessage';
 import { beforeUploadCheck } from '@/utils/helper';
 
+const uploadedData = ref({})
 const titleVal = ref('')
 const router = useRouter()
+const route = useRoute()
+const isEditMode = !!route.query.id
 const store = useMainStore()
 let imageId = ''
 const titleRules: IRulesProp = [
@@ -108,15 +117,39 @@ const onFormSubmit = (result: boolean) => {
       if (imageId) {
         newPost.image = imageId
       }
-      store.createPost(newPost).then(() => {
-        createMessage('发表成功，2秒后跳转到文章', 'success', 2000)
-        setTimeout(() => {
-          router.push({ name: 'column', params: { id: column } })
-        }, 2000)
-      })
+      if (isEditMode) {
+        store.updatePost({
+          id: route.query.id as string,
+          data: newPost,
+        }).then(() => {
+          resultFunc(column)
+        })
+      } else {
+        store.createPost(newPost).then(() => {
+          resultFunc(column)
+        })
+      }
     }
   }
 }
+const resultFunc = (column: string) => {
+  createMessage('发表成功，2秒后跳转到文章', 'success', 2000)
+  setTimeout(() => {
+    router.push({ name: 'column', params: { id: column } })
+  }, 2000)
+}
+onMounted(() => {
+  if (isEditMode) {
+    store.fetchPost(route.query.id as string)
+    .then((currentPost) => {
+      if (currentPost.image) {
+        uploadedData.value = { data: currentPost.image }
+      }
+      titleVal.value = currentPost.title
+      contentVal.value = currentPost.content || ''
+    })
+  }
+})
 </script>
 
 <style scoped>
@@ -127,10 +160,25 @@ const onFormSubmit = (result: boolean) => {
 .create-post-page :deep(.file-upload-container) {
   height: 200px;
   cursor: pointer;
+  overflow: hidden;
 }
 .create-post-page :deep(.file-upload-container img) {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+.uploaded-area {
+  position: relative;
+}
+.uploaded-area:hover h3 {
+  display: block;
+}
+.uploaded-area h3 {
+  display: none;
+  position: absolute;
+  color: #999;
+  text-align: center;
+  width: 100%;
+  top: 50%;
 }
 </style>

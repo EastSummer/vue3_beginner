@@ -4,7 +4,7 @@
  * @Author: chenpengfei
  * @Date: 2023-03-28 16:51:11
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-04-20 18:36:45
+ * @LastEditTime: 2023-06-01 15:23:07
 -->
 <template>
   <div class="post-list">
@@ -16,7 +16,7 @@
           </router-link>
         </h4>
         <div class="row my-3 align-items-center">
-          <div v-if="post.image" class="col-4">
+          <div v-if="post.image && typeof post.image === 'object'" class="col-4">
             <img :src="post.image.fitUrl" :alt="post.title" class="rounded-lg w-100">
           </div>
           <p :class="{'col-8': post.image}" class="text-muted">

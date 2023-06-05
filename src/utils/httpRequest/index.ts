@@ -4,7 +4,7 @@
  * @Author: chenpengfei
  * @Date: 2021-06-29 16:17:06
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-04-28 14:10:18
+ * @LastEditTime: 2023-06-05 15:30:10
  */
 import {
   AxiosInstance, AxiosRequestConfig,
@@ -62,6 +62,28 @@ class HttpRequest {
       this.axios.get(url).then(
         (res) => {          
           const { code, msg } = res.data
+          // 处理业务错误
+          if (code !== 0) {
+            if (useCatch) reject(res.data)
+          } else {
+            resolve(res.data)
+          }
+        },
+      ).catch((error: any) => {
+        if (useCatch) reject(error)
+      })
+    })
+  }
+
+  // Post JONS 请求
+  patch<T, U>(config: IConfig<T>): Promise<IRes<U>> {
+    const {
+      url, data = {}, options = {}, useCatch = false,
+    } = config
+    return new Promise((resolve: any, reject) => {
+      this.axios.patch(url as string, data, options).then(
+        (res) => {
+          const { code, message } = res.data
           // 处理业务错误
           if (code !== 0) {
             if (useCatch) reject(res.data)

@@ -4,7 +4,7 @@
  * @Author: chenpengfei
  * @Date: 2023-03-14 15:20:44
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-03-31 14:19:56
+ * @LastEditTime: 2023-06-05 14:25:10
 -->
 <template>
   <div class="validate-input-container pb-3">
@@ -12,18 +12,16 @@
       v-if="tag !== 'textarea'"
       class="form-control"
       :class="{'is-invalid': inputRef.error}"
-      :value="inputRef.val"
       @blur="validateInput"
-      @input="updateValue"
+      v-model="inputRef.val"
       v-bind="$attrs"
     />
     <textarea
       v-else
       class="form-control"
       :class="{'is-invalid': inputRef.error}"
-      :value="inputRef.val"
       @blur="validateInput"
-      @input="updateValue"
+      v-model="inputRef.val"
       v-bind="$attrs"
     />
     <span v-if="inputRef.error" class="invalid-feedback">{{inputRef.message}}</span>
@@ -45,7 +43,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { onMounted, reactive } from 'vue'
+import { computed, onMounted, reactive } from 'vue'
 import emitter from '@/utils/EventBus'
 
 const emailReg = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -61,7 +59,10 @@ const props = withDefaults(defineProps<{
 const emits = defineEmits(['update:modelValue'])
 
 const inputRef = reactive({
-  val: props.modelValue || '',
+  val: computed({
+    get: () => props.modelValue || '',
+    set: val => (emits('update:modelValue', val)),
+  }),
   error: false,
   message: '',
 })
@@ -91,11 +92,11 @@ const validateInput = () => {
   }
 }
 
-const updateValue = (e: Event) => {
-  const targetValue = (e.target as HTMLInputElement).value
-  inputRef.val = targetValue
-  emits('update:modelValue', targetValue)
-}
+// const updateValue = (e: Event) => {
+//   const targetValue = (e.target as HTMLInputElement).value
+//   inputRef.val = targetValue
+//   emits('update:modelValue', targetValue)
+// }
 
 onMounted(() => {
   emitter.emit('from-item-created', validateInput)
