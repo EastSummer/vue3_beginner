@@ -4,7 +4,7 @@
  * @Author: chenpengfei
  * @Date: 2023-05-29 14:03:32
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-05-31 16:42:28
+ * @LastEditTime: 2023-06-06 15:45:08
 -->
 <template>
   <div class="post-detail-page">
@@ -26,22 +26,34 @@
         >
           编辑
         </router-link>
-        <button type="button" class="btn btn-danger">删除</button>
+        <button type="button" class="btn btn-danger" @click.prevent="modalIsVisible = true">
+          删除
+        </button>
       </div>
     </article>
+    <Modal
+      title="删除文章"
+      :visible="modalIsVisible"
+      @modal-on-close="modalIsVisible = false"
+      @modal-on-confirm="modalIsVisible = false"
+    >
+      <p>确定要删除这篇文章吗？</p>
+    </Modal>
   </div>
 </template>
 
 <script setup lang="ts">
 import MarkdownIt from 'markdown-it'
 import UserProfile from '@/components/UserProfile.vue'
+import Modal from '@/components/Modal.vue'
 import { IImageProps, IUserProps, useMainStore } from '@/stores'
 import { useRoute } from 'vue-router'
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 
 const store = useMainStore()
 const { fetchPost, getCurrentPost, user } = store
 const route = useRoute()
+const modalIsVisible = ref(false)
 const currentId = route.params.id as string
 const md = MarkdownIt()
 

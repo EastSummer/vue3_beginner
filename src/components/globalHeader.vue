@@ -4,7 +4,7 @@
  * @Author: chenpengfei
  * @Date: 2023-03-13 13:38:29
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-05-10 18:03:18
+ * @LastEditTime: 2023-06-06 14:06:27
 -->
 <template>
   <nav class="navbar navbar-dark bg-primary justify-content-between mb-4 px-4">
@@ -27,6 +27,11 @@
           <DropdownItem>
             <router-link to="/create" class="dropdown-item">
               新建文章
+            </router-link>
+          </DropdownItem>
+          <DropdownItem>
+            <router-link :to="`/column/${user.column}`" class="dropdown-item">
+              我的专栏
             </router-link>
           </DropdownItem>
           <DropdownItem :disabled="true">

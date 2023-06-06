@@ -60,7 +60,6 @@ const fileStatus = ref<IUploadStatus>(props.uploaded ? 'success' : 'ready')
 const uploadedData = ref(props.uploaded)
 
 watch(() => props.uploaded, newVal => {
-  console.log(newVal.data)
   if (newVal) {
     fileStatus.value = 'success'
     uploadedData.value = newVal.data
