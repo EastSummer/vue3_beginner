@@ -4,7 +4,7 @@
  * @Author: chenpengfei
  * @Date: 2023-03-29 15:35:24
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-06-02 10:55:12
+ * @LastEditTime: 2023-06-06 15:54:00
  */
 import { defineStore } from 'pinia'
 import httpRequest from '@/utils/httpRequest'
@@ -126,6 +126,12 @@ export const useMainStore = defineStore('main', {
     fetchPost(id: string) {
       return httpRequest.get<IPostProps>(`/posts/${id}`).then(res => {
         this.posts = [res.data]
+        return res.data
+      })
+    },
+    deletePost(id: string) {
+      return httpRequest.delete<IPostProps>(`/posts/${id}`).then(res => {
+        this.posts = this.posts.filter(post => post._id !== res.data._id)
         return res.data
       })
     },

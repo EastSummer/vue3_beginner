@@ -35,7 +35,7 @@
       title="删除文章"
       :visible="modalIsVisible"
       @modal-on-close="modalIsVisible = false"
-      @modal-on-confirm="modalIsVisible = false"
+      @modal-on-confirm="hideAndDelete"
     >
       <p>确定要删除这篇文章吗？</p>
     </Modal>
@@ -47,12 +47,14 @@ import MarkdownIt from 'markdown-it'
 import UserProfile from '@/components/UserProfile.vue'
 import Modal from '@/components/Modal.vue'
 import { IImageProps, IUserProps, useMainStore } from '@/stores'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { computed, onMounted, ref } from 'vue'
+import createMessage from '@/components/createMessage'
 
 const store = useMainStore()
-const { fetchPost, getCurrentPost, user } = store
+const { fetchPost, getCurrentPost, user, deletePost } = store
 const route = useRoute()
+const router = useRouter()
 const modalIsVisible = ref(false)
 const currentId = route.params.id as string
 const md = MarkdownIt()
@@ -80,6 +82,15 @@ const currentImageUrl = computed(() => {
     return null
   }
 })
+const hideAndDelete = () => {
+  modalIsVisible.value = false
+  deletePost(currentId).then(data => {
+    createMessage('删除成功，2秒后跳转到专栏首页', 'success', 2000)
+    setTimeout(() => {
+      router.push({ name: 'column', params: { id: data.column } })
+    }, 2000)
+  }) 
+}
 
 onMounted(() => {
   fetchPost(currentId)

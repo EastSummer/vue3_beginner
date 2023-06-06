@@ -4,7 +4,7 @@
  * @Author: chenpengfei
  * @Date: 2021-06-29 16:17:06
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-06-05 15:30:10
+ * @LastEditTime: 2023-06-06 16:05:48
  */
 import {
   AxiosInstance, AxiosRequestConfig,
@@ -75,13 +75,32 @@ class HttpRequest {
     })
   }
 
-  // Post JONS 请求
+  // Patch JONS 请求
   patch<T, U>(config: IConfig<T>): Promise<IRes<U>> {
     const {
       url, data = {}, options = {}, useCatch = false,
     } = config
     return new Promise((resolve: any, reject) => {
       this.axios.patch(url as string, data, options).then(
+        (res) => {
+          const { code, message } = res.data
+          // 处理业务错误
+          if (code !== 0) {
+            if (useCatch) reject(res.data)
+          } else {
+            resolve(res.data)
+          }
+        },
+      ).catch((error: any) => {
+        if (useCatch) reject(error)
+      })
+    })
+  }
+
+  // Delete JONS 请求
+  delete<T>(url: string, useCatch = false): Promise<IRes<T>> {
+    return new Promise((resolve: any, reject) => {
+      this.axios.delete(url).then(
         (res) => {
           const { code, message } = res.data
           // 处理业务错误
