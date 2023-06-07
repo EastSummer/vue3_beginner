@@ -13,6 +13,7 @@ import './style.css'
 import App from './App.vue'
 import createRouter from './router'
 import httpRequest from './utils/httpRequest';
+import 'easymde/dist/easymde.min.css'
 
 const router = createRouter()
 const app = createApp(App)

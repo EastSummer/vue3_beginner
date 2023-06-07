@@ -4,7 +4,7 @@
  * @Author: chenpengfei
  * @Date: 2023-03-31 10:44:28
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-06-05 15:47:49
+ * @LastEditTime: 2023-06-07 15:44:09
 -->
 <template>
   <div class="create-post-page">
@@ -44,6 +44,7 @@
       </div>
       <div class="mb-3">
         <label class="form-label">文章详情：</label>
+        <Editor v-model="contentVal" :options="editorOptions" />
         <validate-input
           rows="10"
           type="text"
@@ -66,19 +67,24 @@
 import ValidateForm from '@/components/ValidateForm.vue'
 import ValidateInput, { IRulesProp } from '@/components/ValidateInput.vue'
 import Uploader from '@/components/Uploader.vue'
+import Editor from '@/components/Editor.vue'
 import { useMainStore, IPostProps, IImageProps } from '@/stores';
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { Options } from 'easymde'
 import createMessage from '@/components/createMessage';
 import { beforeUploadCheck } from '@/utils/helper';
 
-const uploadedData = ref({})
+const uploadedData = ref()
 const titleVal = ref('')
 const router = useRouter()
 const route = useRoute()
 const isEditMode = !!route.query.id
 const store = useMainStore()
 let imageId = ''
+const editorOptions: Options = {
+  spellChecker: false,
+}
 const titleRules: IRulesProp = [
   { type: 'required', message: '文章标题不能为空' }
 ]

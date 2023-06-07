@@ -4,7 +4,7 @@
  * @Author: EastSummer
  * @Date: 2021-06-24 08:46:03
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-05-24 15:55:12
+ * @LastEditTime: 2023-06-07 10:51:55
  */
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 import { useMainStore } from '@/stores'
@@ -28,7 +28,7 @@ export default class Interceptors {
         store.setLoading(true)
         store.error = { status: false, message: '' }
         // get 请求，添加到 url 中
-        if (config.method === 'get') {
+        if (config.method === 'get' || config.method === 'delete') {
           config.params = { ...config.params, icode: '12FFC5220EF64886' }
         }
         // 其他请求，添加到 body 中
