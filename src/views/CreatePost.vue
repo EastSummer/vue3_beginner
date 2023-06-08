@@ -4,7 +4,7 @@
  * @Author: chenpengfei
  * @Date: 2023-03-31 10:44:28
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-06-07 15:44:09
+ * @LastEditTime: 2023-06-08 14:46:44
 -->
 <template>
   <div class="create-post-page">
@@ -44,7 +44,16 @@
       </div>
       <div class="mb-3">
         <label class="form-label">文章详情：</label>
-        <Editor v-model="contentVal" :options="editorOptions" />
+        <Editor
+          v-model="contentVal"
+          :options="editorOptions"
+          @blur="checkEditor"
+          :class="{'is-invalid': !editorStatus.isValid}"
+          ref="editorRef"
+        />
+        <span v-if="!editorStatus.isValid" class="invalid-feedback mt-1">
+          {{editorStatus.message}}
+        </span>
         <validate-input
           rows="10"
           type="text"
@@ -69,18 +78,27 @@ import ValidateInput, { IRulesProp } from '@/components/ValidateInput.vue'
 import Uploader from '@/components/Uploader.vue'
 import Editor from '@/components/Editor.vue'
 import { useMainStore, IPostProps, IImageProps } from '@/stores';
-import { onMounted, ref } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { Options } from 'easymde'
+import EasyMDE, { Options } from 'easymde'
 import createMessage from '@/components/createMessage';
 import { beforeUploadCheck } from '@/utils/helper';
+// interface IEditorInstance {
+//   clear: () => void
+//   getMDEInstance: () => EasyMDE | null
+// }
 
 const uploadedData = ref()
 const titleVal = ref('')
+const editorStatus = reactive({
+  isValid: true,
+  message: '',
+})
 const router = useRouter()
 const route = useRoute()
 const isEditMode = !!route.query.id
 const store = useMainStore()
+// const editorRef = ref<null | IEditorInstance>(null)
 let imageId = ''
 const editorOptions: Options = {
   spellChecker: false,
@@ -111,7 +129,8 @@ const handleFileUploaded = (rawData: IImageProps) => {
   }
 }
 const onFormSubmit = (result: boolean) => {
-  if(result) {
+  checkEditor()
+  if(result && editorStatus.isValid) {
     const { column, _id } = store.user
     if (column) {
       const newPost: IPostProps = {
@@ -144,7 +163,19 @@ const resultFunc = (column: string) => {
     router.push({ name: 'column', params: { id: column } })
   }, 2000)
 }
+const checkEditor = () => {
+  if (contentVal.value.trim() === '') {
+    editorStatus.isValid = false
+    editorStatus.message = '文章详情不能为空'
+  } else {
+    editorStatus.isValid = true
+    editorStatus.message = ''
+  }
+}
 onMounted(() => {
+  // if (editorRef.value) {
+  //   console.log(editorRef.value.getMDEInstance())
+  // }
   if (isEditMode) {
     store.fetchPost(route.query.id as string)
     .then((currentPost) => {

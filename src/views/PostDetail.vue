@@ -43,7 +43,8 @@
 </template>
 
 <script setup lang="ts">
-import MarkdownIt from 'markdown-it'
+// import MarkdownIt from 'markdown-it'
+import { marked } from 'marked'
 import UserProfile from '@/components/UserProfile.vue'
 import Modal from '@/components/Modal.vue'
 import { IImageProps, IUserProps, useMainStore } from '@/stores'
@@ -57,12 +58,18 @@ const route = useRoute()
 const router = useRouter()
 const modalIsVisible = ref(false)
 const currentId = route.params.id as string
-const md = MarkdownIt()
+// const md = MarkdownIt()
 
 const currentPost = computed(() => getCurrentPost(currentId))
 const currentHTML = computed(() => {
+  // if (currentPost.value && currentPost.value.content) {
+  //   return md.render(currentPost.value.content)
+  // }
   if (currentPost.value && currentPost.value.content) {
-    return md.render(currentPost.value.content)
+    const { isHTML, content } = currentPost.value
+    // return isHTML ? content : marked.parse(content)
+    // 添加参数 breaks: true
+    return isHTML ? content : marked(content, { breaks: true })
   }
 })
 const showEditArea = computed(() => {

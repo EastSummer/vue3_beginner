@@ -4,7 +4,7 @@
  * @Author: chenpengfei
  * @Date: 2023-02-16 15:49:27
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-05-26 16:39:48
+ * @LastEditTime: 2023-06-08 13:49:37
 -->
 # Vue 3 + TypeScript + Vite
 
@@ -50,6 +50,7 @@ This template should help get you started developing with Vue 3 and TypeScript i
 10. nextTick 使用 nextTick 包裹以后，会在上一次执行完毕，再执行下一次
 11. https://coding.imooc.com/learn/questiondetail/lz14NYLqLagXK2p9.html
 12. [单文件组件 CSS 功能](https://cn.vuejs.org/api/sfc-css-features.html#sfc-css-features)
+13. [defineExpose](https://cn.vuejs.org/api/sfc-script-setup.html#defineexpose)
 
 ### 插件
 1. [Mitt](./src/docs/mitt.md)

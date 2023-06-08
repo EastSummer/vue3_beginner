@@ -49,6 +49,7 @@ export interface IPostProps {
   createdAt?: string
   column: string
   author?: string | IUserProps
+  isHTML?: boolean
 }
 export interface IAccount {
   email: string

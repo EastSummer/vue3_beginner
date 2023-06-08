@@ -29,15 +29,15 @@ export default class Interceptors {
         store.error = { status: false, message: '' }
         // get 请求，添加到 url 中
         if (config.method === 'get' || config.method === 'delete') {
-          config.params = { ...config.params, icode: '12FFC5220EF64886' }
+          config.params = { ...config.params, icode: '8EEB11431E897A1E' }
         }
         // 其他请求，添加到 body 中
         // 如果是上传文件，添加到 FormData 中
         if (config.data instanceof FormData) {
-          config.data.append('icode', '12FFC5220EF64886')
+          config.data.append('icode', '8EEB11431E897A1E')
         } else {
         // 普通的 body 对象，添加到 data 中
-          config.data = { ...config.data, icode: '12FFC5220EF64886' }
+          config.data = { ...config.data, icode: '8EEB11431E897A1E' }
         }
         return config
       },

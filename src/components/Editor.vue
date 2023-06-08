@@ -14,7 +14,7 @@
 
 <script setup lang="ts">
 import EasyMDE, { Options } from 'easymde'
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
 
 // 类型，属性以及事件
 interface IEditorProps {
@@ -30,9 +30,19 @@ interface IEditorEvents {
 const props = defineProps<IEditorProps>()
 const emits = defineEmits<IEditorEvents>()
 // 有了模版我们需要一些初始的数据
+// 1 暴露对应的方法
+// 2 结合页面实现验证功能
 const textArea = ref<null | HTMLTextAreaElement>()
 let easyMDEInstance: EasyMDE | null = null
 const innerValue = ref(props.modelValue || '')
+
+watch(()=> props.modelValue, newVal => {
+  if (easyMDEInstance) {
+    if (newVal !== innerValue.value) {
+      easyMDEInstance.value(newVal || '')
+    }
+  }
+})
 
 onMounted(() => {
   if(textArea.value) {
@@ -67,9 +77,22 @@ onUnmounted(() => {
   }
   easyMDEInstance = null
 })
+const clear = () => {
+  if (easyMDEInstance) {
+    easyMDEInstance.value('')
+  }
+}
+const getMDEInstance = () => easyMDEInstance
+// https://cn.vuejs.org/api/sfc-script-setup.html#defineexpose
+defineExpose({
+  clear,
+  getMDEInstance,
+})
 
 </script>
 
 <style scoped>
-
+.vue-easymde-editor.is-invalid {
+  border: 1px solid #dc3545;
+}
 </style>

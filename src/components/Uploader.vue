@@ -4,7 +4,7 @@
  * @Author: chenpengfei
  * @Date: 2023-05-17 14:04:18
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-06-02 11:07:03
+ * @LastEditTime: 2023-06-08 13:36:00
 -->
 <template>
   <div class="file-upload">
@@ -52,7 +52,7 @@ const props = defineProps<{
   // uploaded: {
   //   [key: string]: any
   // },
-  uploaded: Record<string, any>
+  uploaded?: Record<string, any>
 }>()
 const emit = defineEmits(['file-uploaded', 'file-uploaded-error'])
 const fileInput = ref<null | HTMLInputElement>(null)
