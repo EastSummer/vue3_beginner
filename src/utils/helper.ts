@@ -1,3 +1,11 @@
+/*
+ * @Descripttion: 
+ * @version: 
+ * @Author: chenpengfei
+ * @Date: 2023-05-26 15:33:29
+ * @LastEditors: chenpengfei
+ * @LastEditTime: 2023-06-09 16:28:16
+ */
 import { IColumnProps, IImageProps, IUserProps } from "@/stores"
 
 // https://help.aliyun.com/document_detail/44688.html#title-y1e-xd2-5oo
@@ -42,3 +50,30 @@ export function beforeUploadCheck(file: File, condition: ICheckCondition) {
     error
   }
 }
+
+interface ITestProps {
+  _id: string
+  name: string
+}
+const testData1: ITestProps[] = [
+  { _id: '1', name: 'a' },
+  { _id: '2', name: 'b' },
+]
+const testData2: Record<string, ITestProps> = {
+  1: { _id: '1', name: 'a' },
+  2: { _id: '2', name: 'b' }
+}
+// 1 -> 2
+export const arrToObj = <T extends {_id: string}>(arr: T[]) => 
+  arr.reduce((prev, current)=>{
+    if (current._id) {
+      prev[current._id] = current
+    }
+    return prev
+  }, {} as Record<string, T>)
+// 2 -> 1
+export const objToArr = <T>(obj: Record<string, T>) =>
+  Object.keys(obj).map(key => obj[key])
+// JS中object的key，传数字类型，会默认转化为string
+const result1 = arrToObj(testData1)
+const result2 = objToArr(testData2)

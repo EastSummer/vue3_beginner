@@ -4,7 +4,7 @@
  * @Author: chenpengfei
  * @Date: 2023-03-10 13:19:30
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-04-20 13:52:01
+ * @LastEditTime: 2023-06-12 17:07:32
 -->
 <template>
   <div class="row">
@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, PropType, computed } from 'vue'
+import { PropType, computed } from 'vue'
 // import img from '@/assets/column.jpg'
 import { IColumnProps } from '@/stores/index'
 import { addColumnAvatar } from '@/utils/helper'

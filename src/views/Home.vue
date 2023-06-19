@@ -1,3 +1,11 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: chenpengfei
+ * @Date: 2023-03-23 13:37:30
+ * @LastEditors: chenpengfei
+ * @LastEditTime: 2023-06-19 15:17:45
+-->
 <template>
   <div class="home-page">
     <section class="py-5 text-center container">
@@ -12,21 +20,34 @@
       </div>
     </section>
     <h4 class="font-weight-bold text-center">发现精彩</h4>
-    <column-list :list="columns"></column-list>
+    <column-list :list="columns.data"></column-list>
+    <button
+      class="btn btn-outline-primary mt-2 mb-5 mx-auto btn-block w-25"
+       @click="loadMorePage" v-if="!isLastPage"
+    >
+      加载更多
+    </button>
   </div>
 </template>
 
 <script setup lang="ts">
 import ColumnList from '@/components/ColumnList.vue'
+import useLoadMore from '@/hooks/useLoadMore';
 import { useMainStore } from '@/stores'
 import { storeToRefs } from 'pinia';
-import { onMounted } from 'vue';
+import { computed, onMounted } from 'vue';
 
 const store = useMainStore()
 const { columns } = storeToRefs(store)
+const total = computed(() => store.columns.total)
+const { loadMorePage, isLastPage } = useLoadMore(
+  'fetchColumns',
+  total,
+  { pageSize: 3, currentPage: 2 },
+)
 
 onMounted(() => {
-  store.fetchColumns()
+  store.fetchColumns({ pageSize: 3 })
 })
 
 </script>
