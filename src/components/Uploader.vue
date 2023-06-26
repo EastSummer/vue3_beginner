@@ -63,6 +63,8 @@ watch(() => props.uploaded, newVal => {
   if (newVal) {
     fileStatus.value = 'success'
     uploadedData.value = newVal.data
+  } else {
+    fileStatus.value = 'ready'
   }
 })
 

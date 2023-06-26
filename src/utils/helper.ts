@@ -6,6 +6,7 @@
  * @LastEditors: chenpengfei
  * @LastEditTime: 2023-06-09 16:28:16
  */
+import createMessage from "@/components/createMessage"
 import { IColumnProps, IImageProps, IUserProps } from "@/stores"
 
 // https://help.aliyun.com/document_detail/44688.html#title-y1e-xd2-5oo
@@ -49,6 +50,18 @@ export function beforeUploadCheck(file: File, condition: ICheckCondition) {
     passed: isValidFormat && isValidSize,
     error
   }
+}
+
+export const commonUploadCheck = (file: File) => {
+  const result = beforeUploadCheck(file, { format: ['image/jpeg', 'image/png'], size: 1 })
+  const { passed, error } = result
+  if (error === 'format') {
+    createMessage('上传图片只能是 JPG/PNG 格式!', 'error', 2000)
+  }
+  if (error === 'size') {
+    createMessage('上传图片大小不能超过 1Mb', 'error', 2000)
+  }
+  return passed
 }
 
 interface ITestProps {

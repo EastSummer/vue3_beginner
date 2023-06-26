@@ -35,7 +35,9 @@
             </router-link>
           </DropdownItem>
           <DropdownItem :disabled="true">
-            <a href="#" class="dropdown-item">编辑资料</a>
+            <router-link to="/edit" class="dropdown-item">
+              编辑资料
+            </router-link>
           </DropdownItem>
           <DropdownItem>
             <a href="#" class="dropdown-item" @click="logout">退出登录</a>
@@ -47,11 +49,14 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
 import Dropdown from './Dropdown.vue';
 import DropdownItem from './DropdownItem.vue'
 import { IUserProps, useMainStore } from '@/stores'
+import createMessage from './createMessage';
 
 const store = useMainStore()
+const router = useRouter()
 
 const props = defineProps<{
   user: IUserProps
@@ -59,6 +64,11 @@ const props = defineProps<{
 
 const logout = () => {
   store.logout()
+  createMessage('退出登录成功，2秒后跳转到首页', 'success', 2000)
+  const timer = setTimeout(() => {
+    router.push('/')
+    if (timer) clearTimeout(timer)
+  }, 2000)
 }
 </script>
 

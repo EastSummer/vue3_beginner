@@ -13,6 +13,7 @@ import ColumnDetail from '@/views/ColumnDetail.vue'
 import CreatePost from '@/views/CreatePost.vue'
 import Signup from '@/views/Signup.vue'
 import PostDetail from '@/views/PostDetail.vue'
+import EditProfile from '@/views/EditProfile.vue'
 
 console.log('import.meta.env: ', import.meta.env.VITE_BASE_URL);
 
@@ -50,6 +51,12 @@ const routes = [
     name: 'create',
     component: CreatePost,
     meta: { requiredLogin: true },
+  },
+  {
+    path: '/edit',
+    name: 'edit',
+    component: EditProfile,
+    meta: { requiredLogin: true }
   },
 ]
 

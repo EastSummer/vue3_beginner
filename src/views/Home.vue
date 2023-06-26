@@ -40,10 +40,14 @@ import { computed, onMounted } from 'vue';
 const store = useMainStore()
 const { columns } = storeToRefs(store)
 const total = computed(() => store.columns.total)
+const currentPage = computed(() => store.columns.currentPage)
 const { loadMorePage, isLastPage } = useLoadMore(
   'fetchColumns',
   total,
-  { pageSize: 3, currentPage: 2 },
+  {
+    pageSize: 3,
+    currentPage: (currentPage.value ? currentPage.value + 1 : 2),
+  },
 )
 
 onMounted(() => {

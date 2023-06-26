@@ -8,6 +8,11 @@
  */
 import { defineStore } from 'pinia'
 import httpRequest from '@/utils/httpRequest'
+export interface IResponseType<P = Record<string, never>> {
+  code: number;
+  msg: string;
+  data: P;
+}
 
 export interface IUserProps {
   isLogin?: boolean
@@ -63,14 +68,14 @@ export interface IGlobalDataProps {
   token: string
   error: IGlobalErrorProps
   loading: boolean
-  columns: { data: IColumnProps[]; total: number }
+  columns: { data: IColumnProps[]; currentPage: number; total: number }
   posts: IPostProps[]
   user: IUserProps
 }
 
 export const useMainStore = defineStore('main', {
   state: (): IGlobalDataProps => ({
-    columns: { data: [], total: 0 },
+    columns: { data: [], currentPage: 0, total: 0 },
     posts: [],
     user: { isLogin: false },
     loading: false,
@@ -120,17 +125,20 @@ export const useMainStore = defineStore('main', {
       //   this.columns.data = res.data.list
       // })
       const { currentPage = 1, pageSize = 6 } = params
-      return httpRequest.get<IColumnsProps>(
-        `/columns?currentPage=${currentPage}&pageSize=${pageSize}`
-      ).then(res => {
-        const { data } = this.columns
-        const { list, count } = res.data
-        this.columns.data = res.data.list
-        this.columns = {
-          data: [...data, ...list],
-          total: count,
-        }
-      })
+      if (this.columns.currentPage < currentPage) {
+        return httpRequest.get<IColumnsProps>(
+          `/columns?currentPage=${currentPage}&pageSize=${pageSize}`
+        ).then(res => {
+          const { data } = this.columns
+          const { list, count, currentPage } = res.data
+          // this.columns.data = res.data.list
+          this.columns = {
+            data: [...data, ...list],
+            total: count,
+            currentPage: currentPage * 1
+          }
+        })
+      }
     },
     fetchColumn(cid: string) {
       httpRequest.get<IColumnProps>(`/columns/${cid}`).then(res => {
@@ -181,6 +189,23 @@ export const useMainStore = defineStore('main', {
           ...res.data
         }
         return res.data
+      })
+    },
+    updateUser({id, data}: {id: string, data: any}) {
+      return httpRequest.patch<any, any>({
+        url: `/user/${id}`,
+        data,
+      }).then(res => {
+        this.user = { isLogin: true, ...res.data }
+      })
+    },
+    updateColumn({id, data}: {id: string, data: any}) {
+      return httpRequest.patch<any, any>({
+        url: `/columns/${id}`,
+        data,
+      }).then(res => {
+        this.user = { isLogin: true, ...res.data }
+        // this.columns.data[data._id] = data
       })
     },
   },

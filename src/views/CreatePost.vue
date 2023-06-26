@@ -12,7 +12,7 @@
     <Uploader
       action="upload"
       class="d-flex align-items-center justify-content-center bg-light text-secondary w-100 my-4"
-      :before-upload="beforeUpload"
+      :before-upload="commonUploadCheck"
       @file-uploaded="handleFileUploaded"
       :uploaded="uploadedData"
     >
@@ -82,7 +82,7 @@ import { onMounted, reactive, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import EasyMDE, { Options } from 'easymde'
 import createMessage from '@/components/createMessage';
-import { beforeUploadCheck } from '@/utils/helper';
+import { commonUploadCheck } from '@/utils/helper';
 // interface IEditorInstance {
 //   clear: () => void
 //   getMDEInstance: () => EasyMDE | null
@@ -110,18 +110,18 @@ const contentVal = ref('')
 const contentRules: IRulesProp = [
   { type: 'required', message: '文章详情不能为空' }
 ]
-const beforeUpload = (file: File) => {
-  const { passed, error } = beforeUploadCheck(
-    file, { format: ['image/jpeg', 'image/png'], size: 1 }
-  )
-  if (error === 'format') {
-    createMessage('上传图片只能是 JPG/PNG 格式!', 'error')
-  }
-  if (error === 'size') {
-    createMessage('上传图片大小不能超过 1Mb', 'error')
-  }
-  return passed
-}
+// const beforeUpload = (file: File) => {
+//   const { passed, error } = beforeUploadCheck(
+//     file, { format: ['image/jpeg', 'image/png'], size: 1 }
+//   )
+//   if (error === 'format') {
+//     createMessage('上传图片只能是 JPG/PNG 格式!', 'error')
+//   }
+//   if (error === 'size') {
+//     createMessage('上传图片大小不能超过 1Mb', 'error')
+//   }
+//   return passed
+// }
 const handleFileUploaded = (rawData: IImageProps) => {
   if (rawData._id) {
     imageId = rawData._id

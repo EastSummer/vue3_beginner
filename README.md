@@ -4,7 +4,7 @@
  * @Author: chenpengfei
  * @Date: 2023-02-16 15:49:27
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-06-19 10:29:28
+ * @LastEditTime: 2023-06-21 13:54:09
 -->
 # Vue 3 + TypeScript + Vite
 
@@ -65,3 +65,4 @@ This template should help get you started developing with Vue 3 and TypeScript i
 6. [JWT](https://blog.csdn.net/weixin_45410366/article/details/125031959)
 7. [原型工具](https://whimsical.com/)
 8. [win10突然打不开sourcetree](https://zhuanlan.zhihu.com/p/637566727)
+9. 部署托管(vercel & zeabur)
