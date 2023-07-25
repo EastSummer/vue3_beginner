@@ -7,6 +7,7 @@
  * @LastEditTime: 2023-06-19 14:12:16
  */
 import { useMainStore } from "@/stores"
+import { Store } from "pinia"
 import { ComputedRef, computed, reactive, ref } from "vue"
 
 
@@ -20,12 +21,12 @@ const useLoadMore = (
   total: ComputedRef<number>,
   params: ILoadParams = {currentPage: 2, pageSize: 5}
 ) => {
-  const store = useMainStore()
+  const store = useMainStore() as Store<string, any>
   const currentPage = ref(params.currentPage)
   const requestParams = reactive({
     // 为什么这里不能使用
-    currentPage: currentPage.value,
-    // currentPage,
+    // currentPage: currentPage.value,
+    currentPage,
     pageSize: params.pageSize,
   })
   // 或者使用computed

@@ -4,7 +4,7 @@
  * @Author: chenpengfei
  * @Date: 2023-02-16 15:49:27
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-06-21 13:54:09
+ * @LastEditTime: 2023-07-25 10:41:08
 -->
 # Vue 3 + TypeScript + Vite
 
@@ -30,31 +30,42 @@ This template should help get you started developing with Vue 3 and TypeScript i
 2.[Vue Router 和 组合式 API](https://router.vuejs.org/zh/guide/advanced/composition-api.html)
 
 ### Pinia
-1.[官方文档](https://pinia.vuejs.org/zh/introduction.html)
-2.[Vue上的推荐](https://cn.vuejs.org/guide/scaling-up/state-management.html#pinia)
+1. [官方文档](https://pinia.vuejs.org/zh/introduction.html)
+2. [Vue上的推荐](https://cn.vuejs.org/guide/scaling-up/state-management.html#pinia)
 
 ### vue3
 * [生命周期](https://cn.vuejs.org/guide/essentials/lifecycle.html#lifecycle-diagram)
-* 基础语法 & 关键字
-  1. [setup](./src/docs/setup.md)
-  2. [ref](https://cn.vuejs.org/api/reactivity-core.html#ref)
-  3. provide & inject
-    * [provide](./src/components/demo/provide.vue)
-    * [inject](./src/components/demo/inject.vue)
+* Api
+  * 全局 API
+    * ```nextTick``` (使用 nextTick 包裹以后，会在上一次执行完毕，再执行下一次)
+  * 组合式 API
+    * [setup](./src/docs/setup-api.md)
+    * [ref](https://cn.vuejs.org/api/reactivity-core.html#ref)
+  * provide & inject
+    * [provide](./src/demo/provide.vue)
+    * [inject](./src/demo/inject.vue)
+  * 单文件组件
+    * [defineExpose 暴露组件方法](https://cn.vuejs.org/api/sfc-script-setup.html#defineexpose)
+    * [CSS 功能](https://cn.vuejs.org/api/sfc-css-features.html#sfc-css-features)
+  * TypeScript 工具类型
+    * [PropType<T>](https://cn.vuejs.org/api/utility-types.html#proptype-t)
 * 内置组件
-  1. [Teleport](https://cn.vuejs.org/guide/built-ins/teleport.html)
-  2. [Suspense]
-7. [响应性语法糖(已废弃)](./src/docs/ref-sugar.md)
-8. 支持多标签，不需要root节点
-9. [PropType<T>](https://cn.vuejs.org/api/utility-types.html#proptype-t)
-10. nextTick 使用 nextTick 包裹以后，会在上一次执行完毕，再执行下一次
-11. https://coding.imooc.com/learn/questiondetail/lz14NYLqLagXK2p9.html
-12. [单文件组件 CSS 功能](https://cn.vuejs.org/api/sfc-css-features.html#sfc-css-features)
-13. [defineExpose](https://cn.vuejs.org/api/sfc-script-setup.html#defineexpose)
+  * [Transition](https://cn.vuejs.org/guide/built-ins/transition.html)
+  * [KeepAlive](https://cn.vuejs.org/guide/built-ins/keep-alive.html)
+  * [Teleport](https://cn.vuejs.org/guide/built-ins/teleport.html)
+  * [Suspense](https://cn.vuejs.org/guide/built-ins/suspense.html)
+* [响应性语法糖(已废弃)](./src/docs/ref-sugar.md)
+* 支持多标签，不需要root节点(Fragment-碎片化节点)
+* 
+* 
+* https://coding.imooc.com/learn/questiondetail/lz14NYLqLagXK2p9.html
+* 
+* 
 
 ### 插件
 1. [Mitt](./src/docs/mitt.md)
 2. [Vue Devtools](https://devtools.vuejs.org/guide/installation.html)
+3. [commit msg validator](./src/docs/commit-hooks.md)
 
 ### others
 1. [副作用](https://coding.imooc.com/learn/questiondetail/gDANwPNllzzXK120.html)
@@ -66,3 +77,10 @@ This template should help get you started developing with Vue 3 and TypeScript i
 7. [原型工具](https://whimsical.com/)
 8. [win10突然打不开sourcetree](https://zhuanlan.zhihu.com/p/637566727)
 9. 部署托管(vercel & zeabur)
+
+### 一些自定规范
+* 使用大驼峰（PascalCase）命名组件和使用组件。
+* 接口使用 I(Interface) + PascalCase 命名
+
+### 参考
+* [Vue3 入门指南与实战案例](https://vue3.chengpeiquan.com/) | [Github](https://github.com/chengpeiquan/learning-vue3)

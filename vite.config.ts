@@ -4,23 +4,7 @@
  * @Author: chenpengfei
  * @Date: 2023-02-16 15:49:27
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-04-20 10:00:30
- */
-/*
- * @Descripttion: 
- * @version: 
- * @Author: chenpengfei
- * @Date: 2023-02-16 15:49:27
- * @LastEditors: chenpengfei
- * @LastEditTime: 2023-03-16 15:28:40
- */
-/*
- * @Descripttion: 
- * @version: 
- * @Author: chenpengfei
- * @Date: 2023-02-16 15:49:27
- * @LastEditors: chenpengfei
- * @LastEditTime: 2023-03-10 16:24:27
+ * @LastEditTime: 2023-06-29 14:04:22
  */
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
