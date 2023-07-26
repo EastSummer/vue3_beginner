@@ -4,10 +4,8 @@
  * @Author: chenpengfei
  * @Date: 2023-03-06 16:44:36
  * @LastEditors: chenpengfei
- * @LastEditTime: 2023-07-25 14:07:28
+ * @LastEditTime: 2023-07-26 13:56:03
 -->
-
-<br />
 
 Q1. Vue3 setup语法糖写法给组件添加name属性
   >1. 新增一个```script```标签，在这个```script```标签定义一个```name```属性（在 3.2.34 或以上的版本中，使用```<script setup>```的单文件组件会自动根据文件名生成对应的```name```选项，无需再手动声明。[Link](https://cn.vuejs.org/guide/built-ins/keep-alive.html#include-exclude)）
@@ -41,7 +39,8 @@ Q3. 选项式api与组合式api
 
 <br />
 
-Q4. ref和reactive使用选择
-  > https://www.cnblogs.com/hgng/p/17254584.html
+Q4. ```ref``` 和 ```reactive``` 使用选择
+  > ```reactive``` 可以转换对象成为响应式数据对象，但是不支持简单数据类型  
+  > ```ref``` 可以转换简单数据类型为响应式数据对象，也可以支持复杂数据类型，但是操作的时候需要使用到 ```.value```  
+  > 如果确定数据类型是对象，且字段和名称也确定，可以使用 ```reactive``` 转换成响应式数据，其他都使用 ```ref```  
 
-1
